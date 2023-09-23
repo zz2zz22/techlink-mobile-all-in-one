@@ -30,11 +30,18 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("skipOnboarding", false);
             editor.commit();
             */
-            AppUpdater appUpdater = new AppUpdater(this);
-            appUpdater.setDisplay(Display.DIALOG);
-            appUpdater.setCancelable(false);
-            appUpdater.setUpdateFrom(UpdateFrom.JSON);
-            appUpdater.setUpdateJSON("");
+            // https://github.com/javiersantos/AppUpdater
+            AppUpdater appUpdater = new AppUpdater(this)
+                    .setTitleOnUpdateAvailable("Có bản cập nhật mới !")
+                    .setContentOnUpdateAvailable("Nội dung")
+                    .setButtonUpdate("Update ?")
+                    .setButtonDismiss("Maybe later")
+                    .setIcon(R.drawable.techlink_logo)
+                    .setDisplay(Display.DIALOG)
+                    .setButtonDoNotShowAgain(null)
+                    .setCancelable(false)
+                    .setUpdateFrom(UpdateFrom.JSON)
+                    .setUpdateJSON("https://raw.githubusercontent.com/zz2zz22/techlink-mobile-all-in-one/master/app/update-changelog.json");
             appUpdater.start();
             if(isSkipOnboarding)
             {
