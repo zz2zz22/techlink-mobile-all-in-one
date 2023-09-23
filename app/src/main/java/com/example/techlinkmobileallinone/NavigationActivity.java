@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ public class NavigationActivity extends AppCompatActivity {
                 nextButton.setText("Tiếp tục 接着");
             }
         }
+
         @Override
         public void onPageScrollStateChanged(int state) {
         }

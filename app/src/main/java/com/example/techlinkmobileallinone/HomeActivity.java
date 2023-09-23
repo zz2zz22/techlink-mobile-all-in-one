@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,10 @@ import android.widget.Toast;
 import com.example.techlinkmobileallinone.main.SettingFragment;
 import com.example.techlinkmobileallinone.main.HomeFragment;
 import com.example.techlinkmobileallinone.controller.SubMethods;
+import com.github.javiersantos.appupdater.AppUpdaterUtils;
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.github.javiersantos.appupdater.objects.Update;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -52,7 +57,27 @@ public class HomeActivity extends AppCompatActivity {
             empName = extras.getString("empName");
         }
         getViews();
+        AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
+                .setUpdateFrom(UpdateFrom.JSON)
+                .setUpdateJSON("https://raw.githubusercontent.com/zz2zz22/techlink-mobile-all-in-one/master/app/update-changelog.json")
+                .withListener(new AppUpdaterUtils.UpdateListener() {
+                    @Override
+                    public void onSuccess(Update update, Boolean isUpdateAvailable) {
+                        Log.d("Latest Version", update.getLatestVersion());
+                        Log.d("Latest Version Code", String.valueOf(update.getLatestVersionCode()));
+                        Log.d("Release notes", update.getReleaseNotes());
+                        Log.d("URL", String.valueOf(update.getUrlToDownload()));
+                        Log.d("Is update available?", Boolean.toString(isUpdateAvailable));
+                        if(isUpdateAvailable)
+                            subMethods.showInformationUpdateDialog(getString(R.string.informationTitle), "Vui lòng cập nhật phần mềm!\n请更新软件！", HomeActivity.this);
+                    }
 
+                    @Override
+                    public void onFailed(AppUpdaterError error) {
+                        Log.d("AppUpdater Error", "Something went wrong");
+                    }
+                });
+        appUpdaterUtils.start();
         View headerView = navigationView.getHeaderView(0);
         TextView navHeaderTitle = (TextView) headerView.findViewById(R.id.nav_header_title);
         TextView navHeaderCaption = (TextView) headerView.findViewById(R.id.nav_header_caption);

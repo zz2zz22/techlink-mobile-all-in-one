@@ -2,14 +2,22 @@ package com.example.techlinkmobileallinone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.techlinkmobileallinone.controller.DatabaseConnector;
 import com.example.techlinkmobileallinone.controller.SubMethods;
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.AppUpdaterUtils;
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
+import com.github.javiersantos.appupdater.enums.Display;
+import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.github.javiersantos.appupdater.objects.Update;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,6 +37,46 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getViews();
+        // https://github.com/javiersantos/AppUpdater
+        AppUpdater appUpdater = new AppUpdater(this)
+                .setTitleOnUpdateAvailable("Có bản cập nhật mới! 有新更新！")
+                .setContentOnUpdateAvailable("Vui lòng cập nhật để có thể sử dụng!\n请更新后才能使用！")
+                .setButtonUpdate("Cập nhật 更新")
+                .setButtonDismiss("Hủy bỏ 撤消")
+                .setButtonDismissClickListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                        System.exit(0);
+                    }
+                })
+                .setButtonDoNotShowAgain(null)
+                .setCancelable(false)
+                .setIcon(R.drawable.small_logo)
+                .setDisplay(Display.DIALOG)
+                .setUpdateFrom(UpdateFrom.JSON)
+                .setUpdateJSON("https://raw.githubusercontent.com/zz2zz22/techlink-mobile-all-in-one/master/app/update-changelog.json");
+        appUpdater.start();
+        AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
+                .setUpdateFrom(UpdateFrom.JSON)
+                .setUpdateJSON("https://raw.githubusercontent.com/zz2zz22/techlink-mobile-all-in-one/master/app/update-changelog.json")
+                .withListener(new AppUpdaterUtils.UpdateListener() {
+                    @Override
+                    public void onSuccess(Update update, Boolean isUpdateAvailable) {
+                        Log.d("Latest Version", update.getLatestVersion());
+                        Log.d("Latest Version Code", String.valueOf(update.getLatestVersionCode()));
+                        Log.d("Release notes", update.getReleaseNotes());
+                        Log.d("URL", String.valueOf(update.getUrlToDownload()));
+                        Log.d("Is update available?", Boolean.toString(isUpdateAvailable));
+                    }
+
+                    @Override
+                    public void onFailed(AppUpdaterError error) {
+                        Log.d("AppUpdater Error", "Something went wrong");
+                    }
+                });
+        appUpdaterUtils.start();
+
         loginButton.setOnClickListener(view -> {
             try {
                 if (!username.getText().toString().trim().isEmpty()) {
@@ -51,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             i.putExtra("empDeptCode", empDeptCode.trim());
                             i.putExtra("empCode", empCode.trim());
                             i.putExtra("empName", empName.trim());
+                            appUpdater.dismiss();
                             LoginActivity.this.startActivity(i);
                             overridePendingTransition(R.anim.slide_from_top, R.anim.slide_to_bottom);
                             finish();

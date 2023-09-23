@@ -18,7 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.techlinkmobileallinone.R;
 
 public class SubMethods {
-    public void showCustomAlertDialog(String Title, String Message, Activity ActivityToOpen, int imageID, int buttonColor) {
+    public void showCustomAlertDialog(String Title, String Message, Activity ActivityToOpen, int imageID, int buttonColor, Boolean isNotUpdated) {
         ConstraintLayout alertConstraintLayout = ActivityToOpen.findViewById(R.id.alertConstraintLayout);
         View view = LayoutInflater.from(ActivityToOpen).inflate(R.layout.alert_dialog, alertConstraintLayout);
         Button alertDone = view.findViewById(R.id.alertDone);
@@ -36,8 +36,13 @@ public class SubMethods {
         alertDone.setBackgroundColor(alertDone.getContext().getResources().getColor(buttonColor));
         alertDone.findViewById(R.id.alertDone).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 alertDialog.dismiss();
+                if(isNotUpdated)
+                {
+                    System.exit(0);
+                }
             }
         });
         if (alertDialog.getWindow() != null) {
@@ -46,15 +51,18 @@ public class SubMethods {
         alertDialog.show();
     }
     public void showSuccessDialog(String Title, String Message, Activity ActivityToOpen) {
-        showCustomAlertDialog(Title, Message, ActivityToOpen, R.drawable.alert_success_icon, R.color.green);
+        showCustomAlertDialog(Title, Message, ActivityToOpen, R.drawable.alert_success_icon, R.color.green, false);
     }
 
     public void showErrorDialog(String Title, String Message, Activity ActivityToOpen) {
-        showCustomAlertDialog(Title, Message, ActivityToOpen, R.drawable.alert_error_icon, R.color.fireBrick);
+        showCustomAlertDialog(Title, Message, ActivityToOpen, R.drawable.alert_error_icon, R.color.fireBrick, false);
     }
 
     public void showInformationDialog(String Title, String Message, Activity ActivityToOpen) {
-        showCustomAlertDialog(Title, Message, ActivityToOpen, R.drawable.alert_information_icon, R.color.lavender);
+        showCustomAlertDialog(Title, Message, ActivityToOpen, R.drawable.alert_information_icon, R.color.lavender, false);
+    }
+    public void showInformationUpdateDialog(String Title, String Message, Activity ActivityToOpen) {
+        showCustomAlertDialog(Title, Message, ActivityToOpen, R.drawable.alert_information_icon, R.color.lavender, true);
     }
 
     public void showAdminCheckDialog(Activity ActivityToOpen, Class NextActivity) {
