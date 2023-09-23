@@ -1,0 +1,40 @@
+<resources>
+    //ApplicationSetting
+    <string name="app_name">Tech-link Silicones</string>
+    <string name="open_nav">Mở 敞</string>
+    <string name="close_nav">Đóng 关闭</string>
+
+    //Button Titles
+    <string name="fire_equipment_title">Quản lý thiết bị chữa cháy\n消防器材管理</string>
+    <string name="fire_equipment_permission">888;777-8;777-7;77718;77717;77711;77710</string>
+    <string name="big_hose_qty_input_title">Nhập sản lượng ống lớn\n输入大管输出</string>
+    <string name="big_hose_qty_input_permission">888;77711;77710;222;999</string>
+    <string name="big_hose_countdown_title">Đếm ngược sản xuất ống lớn\n大管生产倒计时</string>
+    <string name="big_hose_countdown_permission">888;77711;77710;222;999</string>
+
+    //Onboarding Walkthrough
+    <string name="screen1">Có gì mới ?\n什么是新的 ？</string>
+    <string name="screen2">Nhanh hơn\n快点</string>
+    <string name="screen3">Ổn định hơn\n更稳定</string>
+    <string name="screen1desc">Tối ưu hóa các chức năng cơ bản cũng như giao diện người dùng.
+        优化基本功能以及用户界面。</string>
+    <string name="screen2desc">Được nâng cấp về mặt hiệu suất sử dụng.
+        性能方面升级。</string>
+    <string name="screen3desc">Lỗi hệ thống đã được kiểm tra và khắc phục sau phiên bản kiểm thử.
+    测试版本后已检查并修复了系统错误。</string>
+    <string name="startDesc">Khám phá các chức năng mới của phiên bản v1.0. 探索v1.0版本新功能.</string>
+
+    //Alert String
+    <string name="errorTitle">Lỗi 弊</string>
+    <string name="informationTitle">Thông báo 报信</string>
+    <string name="successTitle">Thành công 成功</string>
+    <string name="passwordTitle">Nhập mật khẩu 输入密码</string>
+
+    <string name="sqlConnecting">Đang thử kết nối...\n正在尝试连接...</string>
+    <string name="sqlNotConnect">Không thể kết nối SQL. Vui lòng kiểm tra kết nối internet.\n无法连接 SQL。请检查您的互联网连接。</string>
+    <string name="inputDataEmpty">Dữ liệu không thể để trống\n数据不能为空</string>
+    <string name="employeeNotFound">Không tìm thấy nhân viên!\n没有找到工作人员！</string>
+    <string name="adminPasswordWrong">Sai mật khẩu!\n密码错误！</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
