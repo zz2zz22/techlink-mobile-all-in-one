@@ -2,6 +2,7 @@ package com.example.techlinkmobileallinone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -36,6 +39,8 @@ import com.github.javiersantos.appupdater.objects.Update;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.sql.Statement;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton fab;
@@ -108,7 +113,26 @@ public class HomeActivity extends AppCompatActivity {
                         Toast.makeText(HomeActivity.this, "About", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.nav_logout:
-                        Toast.makeText(HomeActivity.this, "Logout!", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder alert = new AlertDialog.Builder(HomeActivity.this);
+                        alert.setTitle("Đăng xuất 登出");
+                        alert.setMessage("Xác nhận trở về màn hình đăng nhập ?\n确认返回登录屏幕？");
+                        alert.setPositiveButton("Đăng xuất 登出", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                                overridePendingTransition(R.anim.slide_from_bottom, R.anim.slide_to_top);
+                                startActivity(intent);
+                                Toast.makeText(HomeActivity.this, "Đăng xuất thành công!\n退出成功！", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                        alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        alert.show();
                         break;
                     case 0:
                         return false;

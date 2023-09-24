@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:text="Department"
                         android:textColor="@color/lavender"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textAlignment="center"
                         android:id="@+id/recDept"/>
                 </LinearLayout>

@@ -17,7 +17,7 @@
         android:padding="8dp"
         android:text="Bỏ qua 不理"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="14dp"
         app:cornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
         android:fontFamily="@font/exo2_semibold"
         android:text="Quay lại 重返"
         android:textColor="@color/lavender"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -57,7 +57,7 @@
         android:fontFamily="@font/exo2_semibold"
         android:text="Tiếp tục 接着"
         android:textColor="@color/lavender"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

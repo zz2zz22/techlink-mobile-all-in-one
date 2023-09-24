@@ -30,7 +30,7 @@
                 android:text="Khám phá chức năng\n探索功能"
                 android:textAlignment="center"
                 android:textColor="@color/lavender"
-                android:textSize="30sp"
+                android:textSize="30dp"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:layout_marginTop="20dp"
                 android:textAlignment="center"
                 android:textColor="@color/lavender"
-                android:textSize="20sp"/>
+                android:textSize="20dp"/>
 
             <Button
                 android:id="@+id/startButton"
@@ -50,7 +50,7 @@
                 android:text="Bắt đầu 发动"
                 android:padding="8dp"
                 android:fontFamily="@font/exo2_semibold"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 app:cornerRadius = "12dp"/>

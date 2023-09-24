@@ -64,9 +64,4 @@ public class SettingFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_basic_setting, container, false);
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar(). setDisplayHomeAsUpEnabled(false);
-    }
 }

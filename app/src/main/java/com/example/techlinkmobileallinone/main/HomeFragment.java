@@ -102,10 +102,4 @@ public class HomeFragment extends Fragment {
             return false;
         }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar(). setDisplayHomeAsUpEnabled(false);
-    }
 }

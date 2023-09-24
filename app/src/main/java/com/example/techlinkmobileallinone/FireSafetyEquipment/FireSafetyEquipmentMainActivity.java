@@ -63,15 +63,15 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
                     case R.id.fire_nav_home:
                         fragmentManager.popBackStackImmediate();
                         enableViews(false);
-                        replaceFragment(new FSEHomeFragment(), false);
+                        replaceFragment(new FSEHomeFragment(), false, "null");
                         break;
                     case R.id.fire_nav_maintainance:
                         enableViews(true);
-                        replaceFragment(new FSEMaintenanceFragment(), true);
+                        replaceFragment(new FSEQRScanFragment(), true, "maintainance");
                         break;
                     case R.id.fire_nav_check:
                         enableViews(true);
-                        replaceFragment(new FSECheckFragment(), true);
+                        replaceFragment(new FSECheckFragment(), true, "check");
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -80,7 +80,7 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
         });
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
-            replaceFragment(new FSEHomeFragment(), false);
+            replaceFragment(new FSEHomeFragment(), false, "null");
             navigationView.setCheckedItem(R.id.fire_nav_home);
         }
     }
@@ -120,7 +120,10 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
     }
 
-    public void replaceFragment(Fragment fragment, boolean needToAddBackStack) {
+    public void replaceFragment(Fragment fragment, boolean needToAddBackStack, String actionType) {
+        Bundle bundle = new Bundle();
+        bundle.putString("actionType", actionType);
+        fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

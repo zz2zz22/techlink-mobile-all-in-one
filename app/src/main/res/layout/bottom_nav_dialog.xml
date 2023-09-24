@@ -59,7 +59,7 @@
             android:text="Thêm ứng dụng 添加应用程序"
             android:textColor="@color/lavender"
             android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:textSize="16dp"/>
 
     </LinearLayout>
 
@@ -86,7 +86,7 @@
             android:text="Xóa ứng dụng 删除应用程序"
             android:textColor="@color/lavender"
             android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:textSize="16dp"/>
 
     </LinearLayout>
 
