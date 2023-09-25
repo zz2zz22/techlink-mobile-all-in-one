@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,239 @@
     tools:context=".FireSafetyEquipment.FSEMaintenanceFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhập thông tin bảo trì\n输入维护信息"
+            android:fontFamily="@font/exo2_semibold"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/lavender"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/constraintLayout"
+                android:layout_marginTop="10dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="8dp"
+                    android:id="@+id/maintenanceDeviceInfoCard"
+                    android:background="@drawable/custom_edittext"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/maintenanceLabel2">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="24dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/maintenanceDeviceInfoName"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Device name"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textSize="18dp"
+                            android:textColor="@color/lavender"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/maintenanceDeviceInfoLocation"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Device location"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textSize="18dp"
+                            android:textColor="@color/lavender"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/maintenanceDeviceInfoManager"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Device manager"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textSize="18dp"
+                            android:textColor="@color/lavender"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maintenanceLabel2"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="Chọn hạn sử dụng (Khi hoàn tất bảo trì):\n选择到期日期（维护完成后）："
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textSize="20dp"
+                    android:textColor="@color/lavender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/maintenanceDeviceInfoCard"/>
+                <Button
+                    android:id="@+id/expDatePicker"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="01 01 1977"
+                    android:textSize="30dp"
+                    android:textColor="@color/lavender"
+                    style="?android:spinnerStyle"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/maintenanceLabel2"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maintenanceLabel3"
+                    android:layout_marginTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="Ghi chú (nếu có):\n附笔（如果有）:"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textSize="20dp"
+                    android:textColor="@color/lavender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/expDatePicker"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/maintenanceNoteInput"
+                    android:background="@drawable/custom_edittext"
+                    android:drawablePadding="8dp"
+                    android:hint="Nhập ghi chú 输入注释"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:padding="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="@color/cardview_dark_background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/maintenanceLabel3"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maintenanceLabel1"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:text="Chọn loại bảo trì: \n选择维护类型:"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textSize="20dp"
+                    android:textColor="@color/lavender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/maintenanceNoteInput"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:id="@+id/row1"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/maintenanceLabel1">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/startMaintenanceCard"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:cardElevation="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp"
+                        app:cardBackgroundColor="@color/lightcoral">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/startMaintenanceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/startMaintenanceImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="Bảo trì 保养"
+                                android:textColor="@color/white"
+                                android:textSize="20dp" />
+
+                            <ImageView
+                                android:id="@+id/startMaintenanceImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/fire_safety_start_maintenance" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/finishMaintenanceCard"
+                        app:cardElevation="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp"
+                        app:cardBackgroundColor="@color/aquamarine">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/finishMaintenanceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/finishMaintenanceImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="Hoàn tất 完整"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
+
+                            <ImageView
+                                android:id="@+id/finishMaintenanceImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/fire_safety_finish_maintenance" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:text=""
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/row1"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
 </FrameLayout>

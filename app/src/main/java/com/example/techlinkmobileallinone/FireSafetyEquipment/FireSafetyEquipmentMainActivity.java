@@ -63,16 +63,27 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
                     case R.id.fire_nav_home:
                         fragmentManager.popBackStackImmediate();
                         enableViews(false);
-                        replaceFragment(new FSEHomeFragment(), false, "null");
+                        replaceFragment(new FSEHomeFragment(), false, "null", new Bundle());
                         break;
                     case R.id.fire_nav_maintainance:
                         enableViews(true);
-                        replaceFragment(new FSEQRScanFragment(), true, "maintainance");
+                        replaceFragment(new FSEQRScanFragment(), true, "maintenance", new Bundle());
                         break;
                     case R.id.fire_nav_check:
                         enableViews(true);
-                        replaceFragment(new FSECheckFragment(), true, "check");
+                        replaceFragment(new FSEQRScanFragment(), true, "check", new Bundle());
                         break;
+                    case R.id.fire_nav_change_location:
+                        enableViews(true);
+                        replaceFragment(new FSEQRScanFragment(), true, "changeLocation", new Bundle());
+                        break;
+                    case R.id.fire_nav_add:
+                        enableViews(true);
+                        replaceFragment(new FSEQRScanFragment(), true, "add", new Bundle());
+                        break;
+                    case R.id.fire_nav_info:
+                        enableViews(true);
+                        replaceFragment(new FSEQRScanFragment(), true, "information", new Bundle());
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -80,7 +91,7 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
         });
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
-            replaceFragment(new FSEHomeFragment(), false, "null");
+            replaceFragment(new FSEHomeFragment(), false, "null", new Bundle());
             navigationView.setCheckedItem(R.id.fire_nav_home);
         }
     }
@@ -120,8 +131,8 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
     }
 
-    public void replaceFragment(Fragment fragment, boolean needToAddBackStack, String actionType) {
-        Bundle bundle = new Bundle();
+    public void replaceFragment(Fragment fragment, boolean needToAddBackStack, String actionType, Bundle bundle) {
+        navigationView.setCheckedItem(0);
         bundle.putString("actionType", actionType);
         fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -130,6 +141,12 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
         if (needToAddBackStack)
             fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+    public void returnToHome()
+    {
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);;
+        enableViews(false);
+        replaceFragment(new FSEHomeFragment(), false, "null", new Bundle());
     }
 
     public Bundle getUserData() {

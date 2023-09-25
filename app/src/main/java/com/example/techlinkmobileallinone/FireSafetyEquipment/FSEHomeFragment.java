@@ -30,12 +30,15 @@ public class FSEHomeFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_f_s_e_home, container, false);
         maintenanceCard = (CardView) view.findViewById(R.id.maintenanceCard);
         checkCard = (CardView) view.findViewById(R.id.checkCard);
+        changeLocationCard = (CardView) view.findViewById(R.id.changeLocationCard);
+        addNewCard = (CardView) view.findViewById(R.id.addNewCard);
+        infoCard = (CardView) view.findViewById(R.id.infoCard);
 
         maintenanceCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 activity.enableViews(true);
-                activity.replaceFragment(new FSEQRScanFragment(), true, "maintenance");
+                activity.replaceFragment(new FSEQRScanFragment(), true, "maintenance", new Bundle());
             }
         });
 
@@ -43,7 +46,31 @@ public class FSEHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.enableViews(true);
-                activity.replaceFragment(new FSEQRScanFragment(), true, "check");
+                activity.replaceFragment(new FSEQRScanFragment(), true, "check", new Bundle());
+            }
+        });
+
+        changeLocationCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.enableViews(true);
+                activity.replaceFragment(new FSEQRScanFragment(), true, "changeLocation", new Bundle());
+            }
+        });
+
+        addNewCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.enableViews(true);
+                activity.replaceFragment(new FSEQRScanFragment(), true, "add", new Bundle());
+            }
+        });
+
+        infoCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.enableViews(true);
+                activity.replaceFragment(new FSEQRScanFragment(), true, "information", new Bundle());
             }
         });
 

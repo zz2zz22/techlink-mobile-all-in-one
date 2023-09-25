@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FireSafetyEquipment.FSEInformationFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông tin thiết bị\n设备信息"
+            android:fontFamily="@font/exo2_semibold"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/lavender"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/constraintLayout"
+                android:layout_marginTop="10dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="8dp"
+                    android:id="@+id/informationInfoCard"
+                    android:background="@drawable/custom_edittext"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/informationLabel1">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="24dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/informationName"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Device name"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textSize="18dp"
+                            android:textColor="@color/lavender"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/informationLocation"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Device location"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textSize="18dp"
+                            android:textColor="@color/lavender"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/informationManager"
+                            android:paddingTop="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="Device manager"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textSize="18dp"
+                            android:textColor="@color/lavender"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/informationLabel1"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="Hạn sử dụng:\n有效期:"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textSize="20dp"
+                    android:textColor="@color/lavender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informationInfoCard"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/informationExpDate"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="exDate"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/rebeccaPurple"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informationLabel1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/informationLabel2"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="Ngày bảo trì gần nhất:\n最近维护日期："
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textSize="20dp"
+                    android:textColor="@color/lavender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informationExpDate"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/informationNearestMaintenance"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="maintenanceDate"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/rebeccaPurple"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informationLabel2"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/informationLabel3"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="Ngày kiểm tra gần nhất:\n最近检查日期："
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textSize="20dp"
+                    android:textColor="@color/lavender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informationNearestMaintenance"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/informationNearestCheck"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="10dp"
+                    android:text="checkDate"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/rebeccaPurple"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informationLabel3"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/informationNearestCheck">
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>

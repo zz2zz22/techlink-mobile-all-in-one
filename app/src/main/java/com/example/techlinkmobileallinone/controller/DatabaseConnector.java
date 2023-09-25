@@ -11,7 +11,7 @@ public class DatabaseConnector {
     Connection con;
 
     @SuppressLint("NewApi")
-    public Connection sqlDeviceMaintenanceCon(Context context) {
+    public Connection sqlDeviceMaintenanceCon() {
         String uname, pass, ip, port, database;
         ip = "172.16.0.12";
         database = "DEVICES_MAINTENANCE";
