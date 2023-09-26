@@ -31,7 +31,6 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
     SubMethods subMethods = new SubMethods();
     String empCode, empName;
     FragmentManager fragmentManager;
-    CardView maintenanceCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +60,7 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.fire_nav_home:
-                        fragmentManager.popBackStackImmediate();
-                        enableViews(false);
-                        replaceFragment(new FSEHomeFragment(), false, "null", new Bundle());
+                        returnToHome();
                         break;
                     case R.id.fire_nav_maintainance:
                         enableViews(true);

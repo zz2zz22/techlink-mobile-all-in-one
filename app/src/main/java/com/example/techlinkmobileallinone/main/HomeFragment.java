@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.techlinkmobileallinone.BigHoseCountDown.BigHoseCountDownActivity;
 import com.example.techlinkmobileallinone.FireSafetyEquipment.FireSafetyEquipmentMainActivity;
 import com.example.techlinkmobileallinone.HomeActivity;
 import com.example.techlinkmobileallinone.LoginActivity;
@@ -79,9 +80,7 @@ public class HomeFragment extends Fragment {
         dataList = new ArrayList<>();
 
         //Khu vực thêm nút
-        androidData = new ButtonDataClass(getString(R.string.big_hose_countdown_title), CheckPermission(getString(R.string.big_hose_countdown_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_countdown, LoginActivity.class, empCode, empName, false);
-        dataList.add(androidData);
-        androidData = new ButtonDataClass(getString(R.string.big_hose_qty_input_title), CheckPermission(getString(R.string.big_hose_qty_input_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_qtyinput, LoginActivity.class, empCode, empName, false);
+        androidData = new ButtonDataClass(getString(R.string.big_hose_countdown_title), CheckPermission(getString(R.string.big_hose_countdown_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_countdown, BigHoseCountDownActivity.class, empCode, empName, false);
         dataList.add(androidData);
         androidData = new ButtonDataClass(getString(R.string.fire_equipment_title), CheckPermission(getString(R.string.fire_equipment_permission)), "HSE", R.drawable.button_fire_equipment, FireSafetyEquipmentMainActivity.class, empCode, empName, true);
         dataList.add(androidData);

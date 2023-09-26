@@ -27,7 +27,7 @@ public class DatabaseConnector {
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             ConnectionURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";" + "databasename=" + database + ";user=" + uname + ";password=" + pass + ";";
-            DriverManager.setLoginTimeout(1);
+            DriverManager.setLoginTimeout(2);
             connection = DriverManager.getConnection(ConnectionURL);
         } catch (Exception ex) {
             Log.e("0.12 DEVICES_MAINTENANCE SQL connection Error ", ex.getMessage());
@@ -51,7 +51,7 @@ public class DatabaseConnector {
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             ConnectionURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";" + "databasename=" + database + ";user=" + uname + ";password=" + pass + ";";
-            DriverManager.setLoginTimeout(1);
+            DriverManager.setLoginTimeout(2);
             connection = DriverManager.getConnection(ConnectionURL);
         } catch (Exception ex) {
             Log.e("0.12 programs_database SQL connection Error ", ex.getMessage());
@@ -76,7 +76,7 @@ public class DatabaseConnector {
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             ConnectionURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";" + "instance=tx;databasename=" + database + ";user=" + uname + ";password=" + pass + ";";
-            DriverManager.setLoginTimeout(1);
+            DriverManager.setLoginTimeout(2);
             connection = DriverManager.getConnection(ConnectionURL);
         } catch (Exception ex) {
             Log.e("HR SQL connection Error ", ex.getMessage());
@@ -101,7 +101,7 @@ public class DatabaseConnector {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             ConnectionURL = "jdbc:mysql://" + ip + ":" + port + "/" + database;
-            DriverManager.setLoginTimeout(1);
+            DriverManager.setLoginTimeout(2);
             connection = DriverManager.getConnection(ConnectionURL, uname, pass);
         } catch (Exception ex) {
             Log.e("MES My SQL connection Error", ex.getMessage());

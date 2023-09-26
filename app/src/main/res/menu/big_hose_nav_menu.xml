@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view"
+    >
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/bh_nav_home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Trang chủ 主页" />
+
+        <item
+            android:id="@+id/bh_nav_settings"
+            android:icon="@drawable/baseline_settings_24"
+            android:title="Cài đặt 安设"/>
+
+    </group>
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/bh_nav_exit"
+                android:icon="@drawable/baseline_exit_to_app_24"
+                android:title="Thoát công cụ 退出工具"/>
+            <item
+                android:id="@+id/bh_nav_logout"
+                android:icon="@drawable/baseline_power_settings_new_24"
+                android:title="Đăng xuất 登出"/>
+        </menu>
+
+    </item>
+
+</menu>
