@@ -10,9 +10,9 @@
     android:background="@drawable/login_bg"
     tools:context=".LoginActivity">
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp"
         android:background="@drawable/custom_edittext">

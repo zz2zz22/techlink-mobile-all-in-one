@@ -5,6 +5,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
         android:name="android.permission.FLASHLIGHT"
@@ -24,28 +25,27 @@
         android:theme="@style/Theme.TechlinkMobileAllInOne"
         tools:targetApi="31">
         <activity
-            android:name=".FireSafetyEquipment.FireSafetyEquipmentMainActivity"
+            android:name=".BigHoseCountDown.BigHoseCountDownActivity"
             android:exported="false" />
         <activity
-            android:name=".GetStarted"
+            android:name=".FireSafetyEquipment.FireSafetyEquipmentMainActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".GetStarted"
+            android:exported="false" />
         <activity
             android:name=".NavigationActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

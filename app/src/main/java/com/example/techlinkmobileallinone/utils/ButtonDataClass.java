@@ -1,8 +1,4 @@
-package com.example.techlinkmobileallinone.model;
-
-import android.app.Activity;
-import android.app.Fragment;
-import android.content.Context;
+package com.example.techlinkmobileallinone.utils;
 
 public class ButtonDataClass {
     private String dataTitle;
@@ -10,6 +6,7 @@ public class ButtonDataClass {
     private String dataDept;
     private int dataImage;
     private Class dataActivity;
+    private Boolean isLocked;
     private String userCode;
     private String userName;
     public String getDataTitle() {
@@ -27,11 +24,12 @@ public class ButtonDataClass {
     public Class getDataActivity() {
         return dataActivity;
     }
+    public boolean getIsLocked(){return isLocked;}
     public String getUserCode() {
         return userCode;
     }
     public String getUserName() {return userName;}
-    public ButtonDataClass(String dataTitle, boolean dataPermission, String dataDept, int dataImage, Class dataActivity, String userCode, String userName) {
+    public ButtonDataClass(String dataTitle, boolean dataPermission, String dataDept, int dataImage, Class dataActivity, String userCode, String userName, boolean isLocked) {
         this.dataTitle = dataTitle;
         this.dataPermission = dataPermission;
         this.dataDept = dataDept;
@@ -39,5 +37,6 @@ public class ButtonDataClass {
         this.dataActivity = dataActivity;
         this.userCode = userCode;
         this.userName = userName;
+        this.isLocked = isLocked;
     }
 }

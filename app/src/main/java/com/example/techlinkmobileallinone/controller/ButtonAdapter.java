@@ -11,15 +11,10 @@ import android.widget.TextView;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.techlinkmobileallinone.HomeActivity;
-import com.example.techlinkmobileallinone.LoginActivity;
 import com.example.techlinkmobileallinone.R;
-import com.example.techlinkmobileallinone.model.ButtonDataClass;
+import com.example.techlinkmobileallinone.utils.ButtonDataClass;
 
 public class ButtonAdapter extends RecyclerView.Adapter<MyViewHolder>{
     private Context context;
@@ -49,10 +44,16 @@ public class ButtonAdapter extends RecyclerView.Adapter<MyViewHolder>{
             public void onClick(View view) {
                 if(dataList.get(holder.getAdapterPosition()).getDataPermission())
                 {
-                    Intent intent = new Intent(context, dataList.get(holder.getAdapterPosition()).getDataActivity());
-                    intent.putExtra("empCode", dataList.get(holder.getAdapterPosition()).getUserCode());
-                    intent.putExtra("empName", dataList.get(holder.getAdapterPosition()).getUserName());
-                    context.startActivity(intent);
+                    if (dataList.get(holder.getAdapterPosition()).getIsLocked())
+                    {
+                        subMethods.showAdminCheckDialog((Activity) context, dataList.get(holder.getAdapterPosition()).getDataActivity());
+                    }else{
+                        Intent intent = new Intent(context, dataList.get(holder.getAdapterPosition()).getDataActivity());
+                        intent.putExtra("empCode", dataList.get(holder.getAdapterPosition()).getUserCode());
+                        intent.putExtra("empName", dataList.get(holder.getAdapterPosition()).getUserName());
+                        context.startActivity(intent);
+                    }
+
                 }else{
                     subMethods.showInformationDialog("Thông báo 报信", "Không có quyền hạn để truy cập.\n无权限访问。", (Activity) context);
                 }

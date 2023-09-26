@@ -2,24 +2,21 @@ package com.example.techlinkmobileallinone.main;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.techlinkmobileallinone.FireSafetyEquipment.FireSafetyEquipmentMainActivity;
 import com.example.techlinkmobileallinone.HomeActivity;
 import com.example.techlinkmobileallinone.LoginActivity;
 import com.example.techlinkmobileallinone.R;
 import com.example.techlinkmobileallinone.controller.ButtonAdapter;
-import com.example.techlinkmobileallinone.model.ButtonDataClass;
+import com.example.techlinkmobileallinone.utils.ButtonDataClass;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,16 +74,16 @@ public class HomeFragment extends Fragment {
                 return true;
             }
         });
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        //recyclerView.setLayoutManager(gridLayoutManager);
         dataList = new ArrayList<>();
 
         //Khu vực thêm nút
-        androidData = new ButtonDataClass(getString(R.string.fire_equipment_title), CheckPermission(getString(R.string.fire_equipment_permission)), "HSE", R.drawable.button_fire_equipment, FireSafetyEquipmentMainActivity.class, empCode, empName);
+        androidData = new ButtonDataClass(getString(R.string.big_hose_countdown_title), CheckPermission(getString(R.string.big_hose_countdown_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_countdown, LoginActivity.class, empCode, empName, false);
         dataList.add(androidData);
-        androidData = new ButtonDataClass(getString(R.string.big_hose_qty_input_title), CheckPermission(getString(R.string.big_hose_qty_input_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_qtyinput, LoginActivity.class, empCode, empName);
+        androidData = new ButtonDataClass(getString(R.string.big_hose_qty_input_title), CheckPermission(getString(R.string.big_hose_qty_input_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_qtyinput, LoginActivity.class, empCode, empName, false);
         dataList.add(androidData);
-        androidData = new ButtonDataClass(getString(R.string.big_hose_countdown_title), CheckPermission(getString(R.string.big_hose_countdown_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_countdown, LoginActivity.class, empCode, empName);
+        androidData = new ButtonDataClass(getString(R.string.fire_equipment_title), CheckPermission(getString(R.string.fire_equipment_permission)), "HSE", R.drawable.button_fire_equipment, FireSafetyEquipmentMainActivity.class, empCode, empName, true);
         dataList.add(androidData);
 
         adapter = new ButtonAdapter(getContext(), dataList);

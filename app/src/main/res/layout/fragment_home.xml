@@ -32,6 +32,8 @@
             android:layout_height="match_parent"
             android:id="@+id/recyclerView"
             android:layout_marginTop="8dp"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
 </FrameLayout>

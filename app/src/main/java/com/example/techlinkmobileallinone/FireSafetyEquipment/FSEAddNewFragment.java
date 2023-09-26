@@ -62,7 +62,18 @@ public class FSEAddNewFragment extends Fragment {
         initInstallDatePicker();
         installDatePicker.setText(getEstInstallDate());
         expDatePicker.setText(getEstExpDate(deviceTypeID));
-
+        installDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                installDatePickerDialog.show();
+            }
+        });
+        expDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expDatePickerDialog.show();
+            }
+        });
         scanSaveNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
