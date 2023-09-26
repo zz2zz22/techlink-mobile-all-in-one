@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BigHoseCountDown.BHCDChooseProductFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_semibold"
+            android:text="Chọn mã thành phẩm 选择成品代码"
+            android:textAlignment="center"
+            android:textColor="@color/lavender"
+            android:textSize="20dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/employeeInfoCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_edittext"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/searchProduct"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:id="@+id/employeeName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:paddingLeft="10dp"
+
+                            android:text="Employee name"
+                            android:textColor="@color/lavender"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/employeeCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:text="Employee code"
+                            android:textColor="@color/lavender"
+                            android:textSize="18dp" />
+                        <TextView
+                            android:id="@+id/employeeDept"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:text="Employee department"
+                            android:textColor="@color/lavender"
+                            android:textSize="18dp" />
+                        <TextView
+                            android:id="@+id/employeeStation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:text="Employee station"
+                            android:textColor="@color/lavender"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.SearchView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/searchProduct"
+                    app:iconifiedByDefault="false"
+                    app:searchHintIcon="@null"
+                    app:queryHint="Tìm kiếm 搜索 ..."
+                    android:focusable="false"
+                    app:closeIcon="@drawable/baseline_clear_24"
+                    app:searchIcon="@drawable/baseline_search_24"
+                    android:background="@drawable/search_bar_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/employeeInfoCard"/>
+
+                <TextView
+                    android:id="@+id/informationLabel2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:text="Chọn mã thành phẩm:\n选择成品代码:"
+                    android:textColor="@color/lavender"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toStartOf="@+id/productCodeChooseCard"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/searchProduct" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/productCodeChooseCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_edittext"
+                    app:cardCornerRadius="30dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/informationLabel2"
+                    app:layout_constraintTop_toTopOf="@+id/informationLabel2"
+                    app:layout_constraintBottom_toBottomOf="@+id/informationLabel2">
+
+                    <Spinner
+                        android:id="@+id/productCodeChoose"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:outlineAmbientShadowColor="@color/rebeccaPurple"
+                        android:textAlignment="center" />
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/acceptProductButton"
+                    android:layout_width="300dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="30dp"
+                    android:backgroundTint="@color/rebeccaPurple"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:text="Xác nhận 断言"
+                    android:textSize="18dp"
+                    app:cornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productCodeChooseCard" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/acceptProductButton">
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</FrameLayout>
