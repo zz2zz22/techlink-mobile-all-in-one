@@ -2,10 +2,14 @@ package com.example.techlinkmobileallinone.FireSafetyEquipment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -21,6 +25,7 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.budiyev.android.codescanner.ScanMode;
+import com.example.techlinkmobileallinone.MainActivity;
 import com.example.techlinkmobileallinone.R;
 import com.example.techlinkmobileallinone.controller.DatabaseConnector;
 import com.example.techlinkmobileallinone.controller.SubMethods;
@@ -40,6 +45,7 @@ public class FSEQRScanFragment extends Fragment {
     TextView scanTitle;
     SubMethods subMethods = new SubMethods();
     FragmentManager fm;
+    private int CAMERA_PERMISSION_REQUEST_CODE = 0;
 
     public FSEQRScanFragment() {
         // Required empty public constructor
@@ -54,6 +60,12 @@ public class FSEQRScanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FireSafetyEquipmentMainActivity activity = (FireSafetyEquipmentMainActivity) getActivity();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+            }
+        }
         Bundle bundle = getArguments();
 
         View view = inflater.inflate(R.layout.fragment_f_s_e_q_r_scan, container, false);
