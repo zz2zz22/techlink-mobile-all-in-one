@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,9 @@ import android.widget.TextView;
 
 import com.example.techlinkmobileallinone.FireSafetyEquipment.FSEHomeFragment;
 import com.example.techlinkmobileallinone.FireSafetyEquipment.FSEQRScanFragment;
+import com.example.techlinkmobileallinone.GetStarted;
+import com.example.techlinkmobileallinone.HomeActivity;
+import com.example.techlinkmobileallinone.LoginActivity;
 import com.example.techlinkmobileallinone.R;
 import com.example.techlinkmobileallinone.controller.SubMethods;
 import com.google.android.material.navigation.NavigationView;
@@ -60,11 +65,31 @@ public class BigHoseCountDownActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(BigHoseCountDownActivity.this);
                 switch (item.getItemId()) {
                     case R.id.bh_nav_home:
                         returnToHome();
                         break;
                     case R.id.bh_nav_settings:
+                        break;
+                    case R.id.bh_nav_logout:
+                        alert.setTitle(getString(R.string.informationTitle));
+                        alert.setMessage("Đăng xuất?\n登出？");
+                        alert.setPositiveButton("Đồng ý 同意", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(BigHoseCountDownActivity.this, LoginActivity.class));
+                                overridePendingTransition(R.anim.zoom_in, R.anim.static_animation);
+                                finish();
+                            }
+                        });
+                        alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        alert.show();
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -136,7 +161,27 @@ public class BigHoseCountDownActivity extends AppCompatActivity {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
+            if(fragmentManager.getBackStackEntryCount() == 2)
+            {
+                androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(this);
+                alert.setTitle(getString(R.string.informationTitle));
+                alert.setMessage("Thoát phiên làm việc?\n退出会话？");
+                alert.setPositiveButton("Đồng ý 同意", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        returnToHome();
+                    }
+                });
+                alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                alert.show();
+            }else{
+                fragmentManager.popBackStack();
+            }
             if (fragmentManager.getBackStackEntryCount() == 1) {
                 enableViews(false);
             }

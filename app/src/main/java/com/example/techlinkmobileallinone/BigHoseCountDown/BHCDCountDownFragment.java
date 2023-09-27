@@ -32,7 +32,7 @@ public class BHCDCountDownFragment extends Fragment {
     String ConnectionResult = "";
     DatabaseConnector databaseConnector = new DatabaseConnector();
     String empCode, empName, stationUUID, stationName, deptUUID, deptName, productResultUUID, productResultNo;
-    TextView cdTimerText;
+    TextView cdTimerText, cdPassInfoName, cdFailInfoName;
     CardView cdTimerTextCard, cdPassCard, cdFailCard, cdSmokingCard, cdToiletCard, cdSupplyCard, cdChangeCard;
     CountDownTimer countDownTimer, smokingPauseTimer, toiletPauseTimer, supplyPauseTimer, overtimeTimer;
 
@@ -46,6 +46,7 @@ public class BHCDCountDownFragment extends Fragment {
     public BHCDCountDownFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -59,7 +60,10 @@ public class BHCDCountDownFragment extends Fragment {
             supplyPauseTimer.cancel();
         if (overtimeTimer != null)
             overtimeTimer.cancel();
+
+
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +87,8 @@ public class BHCDCountDownFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_b_h_c_d_count_down, container, false);
         cdTimerText = (TextView) view.findViewById(R.id.cdTimerText);
+        cdPassInfoName = (TextView) view.findViewById(R.id.cdPassInfoName);
+        cdFailInfoName = (TextView) view.findViewById(R.id.cdFailInfoName);
 
         cdTimerTextCard = (CardView) view.findViewById(R.id.cdTimerTextCard);
         cdPassCard = (CardView) view.findViewById(R.id.cdPassCard);
@@ -93,6 +99,7 @@ public class BHCDCountDownFragment extends Fragment {
         cdChangeCard = (CardView) view.findViewById(R.id.cdChangeCard);
 
         GetLogID();
+        UpdateQuantityInfo();
         GetProductCountDown();
         isOverTime = false;
         smokingPauseTimer = new CountDownTimer(10800000, 1000) {
@@ -150,6 +157,7 @@ public class BHCDCountDownFragment extends Fragment {
                 alert.setPositiveButton("Đồng ý 同意", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        cdTimerTextCard.setClickable(false);
                         cdPassCard.setVisibility(View.VISIBLE);
                         cdFailCard.setVisibility(View.VISIBLE);
                         cdSmokingCard.setVisibility(View.VISIBLE);
@@ -158,6 +166,7 @@ public class BHCDCountDownFragment extends Fragment {
                         cdChangeCard.setVisibility(View.VISIBLE);
                         UpdateWorkingStatus();
                         startCountDownTimer();
+
                     }
                 });
                 alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
@@ -175,9 +184,8 @@ public class BHCDCountDownFragment extends Fragment {
                 if (TimerRunning) {
                     UpdateRealTimeQuantity();
                     resetCountDownTimer();
-                }else{
-                    if(isOverTime)
-                    {
+                } else {
+                    if (isOverTime) {
                         UpdateOvertimeInfo();
                         UpdateRealTimeQuantity();
                         if (overtimeTimer != null)
@@ -190,7 +198,6 @@ public class BHCDCountDownFragment extends Fragment {
         cdFailCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (TimerRunning) {
                     androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(activity);
                     alert.setTitle(getString(R.string.informationTitle));
@@ -209,9 +216,8 @@ public class BHCDCountDownFragment extends Fragment {
                         }
                     });
                     alert.show();
-                }else{
-                    if(isOverTime)
-                    {
+                } else {
+                    if (isOverTime) {
                         UpdateOvertimeInfo();
                         UpdateNGQuantity();
                         if (overtimeTimer != null)
@@ -219,7 +225,6 @@ public class BHCDCountDownFragment extends Fragment {
                         resetCountDownTimer();
                     }
                 }
-
             }
         });
         cdSmokingCard.setOnClickListener(new View.OnClickListener() {
@@ -359,7 +364,7 @@ public class BHCDCountDownFragment extends Fragment {
                 alert.setPositiveButton("Đồng ý 同意", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                       activity.returnToHome();
+                        activity.returnToHome();
                     }
                 });
                 alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
@@ -371,9 +376,36 @@ public class BHCDCountDownFragment extends Fragment {
                 alert.show();
             }
         });
-        updateCountText();
         return view;
     }
+
+    private void UpdateQuantityInfo() {
+        BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
+        if (logUUID != null) {
+            connect = databaseConnector.sqlProgramsDatabaseCon();
+            if (connect != null) {
+                try {
+                    Statement st = connect.createStatement();
+                    ResultSet rs = st.executeQuery("select realtime_qty, ng_qty from big_hose_daily_employee_countdown_log where uuid = '" + logUUID + "'");
+                    while (rs.next()) {
+                        cdPassInfoName.setText("OK : " + rs.getString(1) + " PCS");
+                        cdFailInfoName.setText("NG : " + rs.getString(2) + " PCS");
+                    }
+                    connect.close();
+                } catch (Exception ex) {
+                    subMethods.showErrorDialog(getString(R.string.errorTitle), "Lỗi thêm dữ liệu\n添加数据时出错 \n\n" + ex.getMessage(), activity);
+                    activity.returnToHome();
+                }
+            } else {
+                subMethods.showErrorDialog(getString(R.string.errorTitle), "Không thể kết nối với máy chủ!\n无法连接到服务器！", activity);
+                activity.returnToHome();
+            }
+        } else {
+            cdPassInfoName.setText("OK : 0 PCS");
+            cdFailInfoName.setText("NG : 0 PCS");
+        }
+    }
+
     private void UpdateOvertimeInfo() {
         BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
         connect = databaseConnector.sqlProgramsDatabaseCon();
@@ -393,6 +425,7 @@ public class BHCDCountDownFragment extends Fragment {
             activity.returnToHome();
         }
     }
+
     private void UpdateSupplyPauseInfo() {
         BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
         connect = databaseConnector.sqlProgramsDatabaseCon();
@@ -430,6 +463,7 @@ public class BHCDCountDownFragment extends Fragment {
             activity.returnToHome();
         }
     }
+
     private void UpdateSmokingPauseInfo() {
         BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
         connect = databaseConnector.sqlProgramsDatabaseCon();
@@ -448,17 +482,26 @@ public class BHCDCountDownFragment extends Fragment {
             activity.returnToHome();
         }
     }
+
     private void UpdateNGQuantity() {
         BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
         connect = databaseConnector.sqlProgramsDatabaseCon();
         if (connect != null) {
             try {
+                String actualQty = "1";
                 Statement st = connect.createStatement();
-                String updateResult = "update big_hose_countdown_result set ng_qty = ng_qty + 1 where uuid = '" + productResultUUID + "'";
+                if (stationUUID.equals("740NR8961SWFVO")) {
+                    ResultSet rs = st.executeQuery("select distinct quantity from big_hose_base_data where product_no like '%" + productResultNo + "%' and quantity > 0");
+                    while (rs.next()) {
+                        actualQty = rs.getString(1);
+                    }
+                }
+                String updateResult = "update big_hose_countdown_result set ng_qty = ng_qty + " + actualQty + " where uuid = '" + productResultUUID + "'";
                 st.execute(updateResult);
-                String updateLog = "update big_hose_daily_employee_countdown_log set ng_qty = ng_qty + 1 where uuid = '" + logUUID + "'";
+                String updateLog = "update big_hose_daily_employee_countdown_log set ng_qty = ng_qty + " + actualQty + " where uuid = '" + logUUID + "'";
                 st.execute(updateLog);
                 connect.close();
+                UpdateQuantityInfo();
                 Toast.makeText(activity, "Báo phế thành công!\n报废成功！", Toast.LENGTH_SHORT).show();
             } catch (Exception ex) {
                 subMethods.showErrorDialog(getString(R.string.errorTitle), "Lỗi thêm dữ liệu\n添加数据时出错 \n\n" + ex.getMessage(), activity);
@@ -469,6 +512,7 @@ public class BHCDCountDownFragment extends Fragment {
             activity.returnToHome();
         }
     }
+
     private void UpdateWorkingStatus() {
         BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
         connect = databaseConnector.sqlProgramsDatabaseCon();
@@ -498,12 +542,20 @@ public class BHCDCountDownFragment extends Fragment {
         connect = databaseConnector.sqlProgramsDatabaseCon();
         if (connect != null) {
             try {
+                String actualQty = "1";
                 Statement st = connect.createStatement();
-                String updateResult = "update big_hose_countdown_result set realtime_qty = realtime_qty + 1 where uuid = '" + productResultUUID + "'";
+                if (stationUUID.equals("740NR8961SWFVO")) {
+                    ResultSet rs = st.executeQuery("select distinct quantity from big_hose_base_data where product_no like '%" + productResultNo + "%' and quantity > 0");
+                    while (rs.next()) {
+                        actualQty = rs.getString(1);
+                    }
+                }
+                String updateResult = "update big_hose_countdown_result set realtime_qty = realtime_qty + " + actualQty + " where uuid = '" + productResultUUID + "'";
                 st.execute(updateResult);
-                String updateLog = "update big_hose_daily_employee_countdown_log set realtime_qty = realtime_qty + 1 where uuid = '" + logUUID + "'";
+                String updateLog = "update big_hose_daily_employee_countdown_log set realtime_qty = realtime_qty + " + actualQty + " where uuid = '" + logUUID + "'";
                 st.execute(updateLog);
                 connect.close();
+                UpdateQuantityInfo();
                 Toast.makeText(activity, "Thêm thành công\n更多成功", Toast.LENGTH_SHORT).show();
             } catch (Exception ex) {
                 subMethods.showErrorDialog(getString(R.string.errorTitle), "Lỗi thêm dữ liệu\n添加数据时出错 \n\n" + ex.getMessage(), activity);
@@ -590,6 +642,7 @@ public class BHCDCountDownFragment extends Fragment {
         String timeFormat = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         cdTimerText.setText(timeFormat);
     }
+
     private void pauseCountDownTimer() {
         countDownTimer.cancel();
         TimerRunning = false;

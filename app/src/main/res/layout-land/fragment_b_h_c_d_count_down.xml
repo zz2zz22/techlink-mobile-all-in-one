@@ -21,6 +21,84 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rowInfo"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/cdPassInfoCard"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/lavender"
+                        app:cardElevation="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/cdPassInfoName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/cdPassInfoImage"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="SL OK"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/black"
+                                android:textSize="25dp" />
+
+                            <ImageView
+                                android:id="@+id/cdPassInfoImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/big_hose_cd_ok" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cdFailInfoCard"
+                        app:cardElevation="6dp"
+                        app:cardBackgroundColor="@color/lavender"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/cdFailInfoName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@+id/cdFailInfoImage"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="SL NG"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/black"
+                                android:textSize="25dp" />
+
+                            <ImageView
+                                android:id="@+id/cdFailInfoImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/big_hose_cd_defect" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,7 +165,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/exo2_semibold"
-                                android:text="Đạt 获得"
+                                android:text="OK"
                                 android:textColor="@color/black"
                                 android:textSize="20dp" />
 
@@ -123,7 +201,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/exo2_semibold"
-                                android:text="Báo phế 缺点"
+                                android:text="NG"
                                 android:textColor="@color/white"
                                 android:textSize="20dp" />
 
@@ -265,7 +343,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/exo2_semibold"
-                                android:text="Lãnh liệu 原料"
+                                android:text="Lãnh liệu 来料"
                                 android:textColor="@color/lavender"
                                 android:textSize="20dp" />
 

@@ -11,11 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.techlinkmobileallinone.BigHoseCountDown.BigHoseCountDownActivity;
+import com.example.techlinkmobileallinone.LoginActivity;
 import com.example.techlinkmobileallinone.R;
 import com.example.techlinkmobileallinone.controller.SubMethods;
 import com.google.android.material.navigation.NavigationView;
@@ -58,7 +62,9 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(FireSafetyEquipmentMainActivity.this);
                 switch (item.getItemId()) {
+
                     case R.id.fire_nav_home:
                         returnToHome();
                         break;
@@ -81,6 +87,26 @@ public class FireSafetyEquipmentMainActivity extends AppCompatActivity {
                     case R.id.fire_nav_info:
                         enableViews(true);
                         replaceFragment(new FSEQRScanFragment(), true, "information", new Bundle());
+                        break;
+                    case R.id.fire_nav_logout:
+                        alert.setTitle(getString(R.string.informationTitle));
+                        alert.setMessage("Đăng xuất?\n登出？");
+                        alert.setPositiveButton("Đồng ý 同意", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(FireSafetyEquipmentMainActivity.this, LoginActivity.class));
+                                overridePendingTransition(R.anim.zoom_in, R.anim.static_animation);
+                                finish();
+                            }
+                        });
+                        alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        alert.show();
+                        break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;

@@ -49,10 +49,6 @@
 
         <menu>
             <item
-                android:id="@+id/fire_nav_exit"
-                android:icon="@drawable/baseline_exit_to_app_24"
-                android:title="Thoát công cụ 退出工具"/>
-            <item
                 android:id="@+id/fire_nav_logout"
                 android:icon="@drawable/baseline_power_settings_new_24"
                 android:title="Đăng xuất 登出"/>
