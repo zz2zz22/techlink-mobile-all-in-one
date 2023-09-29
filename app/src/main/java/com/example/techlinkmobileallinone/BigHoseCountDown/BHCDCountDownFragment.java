@@ -1,24 +1,36 @@
 package com.example.techlinkmobileallinone.BigHoseCountDown;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.techlinkmobileallinone.R;
 import com.example.techlinkmobileallinone.controller.DatabaseConnector;
+import com.example.techlinkmobileallinone.controller.OnSwipeTouchListener;
 import com.example.techlinkmobileallinone.controller.SubMethods;
 import com.example.techlinkmobileallinone.controller.UUIDGenerator;
 
@@ -32,16 +44,18 @@ public class BHCDCountDownFragment extends Fragment {
     String ConnectionResult = "";
     DatabaseConnector databaseConnector = new DatabaseConnector();
     String empCode, empName, stationUUID, stationName, deptUUID, deptName, productResultUUID, productResultNo;
-    TextView cdTimerText, cdPassInfoName, cdFailInfoName;
+    TextView cdTimerText, cdPassInfoName, cdFailInfoName, cdLabel;
     CardView cdTimerTextCard, cdPassCard, cdFailCard, cdSmokingCard, cdToiletCard, cdSupplyCard, cdChangeCard;
     CountDownTimer countDownTimer, smokingPauseTimer, toiletPauseTimer, supplyPauseTimer, overtimeTimer;
-
+    LinearLayout mainLayoutView, subLayoutView;
     String totalSmokingPauseTime = "0", totalToiletPauseTime = "0", totalSupplyPauseTime = "0", totalOvertimeTime = "0";
     private static long START_TIME_IN_MILLIS = 0;
-    boolean TimerRunning, isOverTime;
+    boolean TimerRunning, isOverTime, isMaximized, isStartWorking;
     long TimeLeftInMills = START_TIME_IN_MILLIS;
     private String logUUID = null;
     SubMethods subMethods = new SubMethods();
+    Uri notification;
+    Ringtone r;
 
     public BHCDCountDownFragment() {
         // Required empty public constructor
@@ -60,8 +74,6 @@ public class BHCDCountDownFragment extends Fragment {
             supplyPauseTimer.cancel();
         if (overtimeTimer != null)
             overtimeTimer.cancel();
-
-
     }
 
     @Override
@@ -73,7 +85,8 @@ public class BHCDCountDownFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
-
+        notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        r = RingtoneManager.getRingtone(getContext(), notification);
         Bundle results = getArguments();
         //empCode, empName, stationUUID, stationName, deptUUID, deptName;
         empCode = results.getString("empCode");
@@ -89,6 +102,9 @@ public class BHCDCountDownFragment extends Fragment {
         cdTimerText = (TextView) view.findViewById(R.id.cdTimerText);
         cdPassInfoName = (TextView) view.findViewById(R.id.cdPassInfoName);
         cdFailInfoName = (TextView) view.findViewById(R.id.cdFailInfoName);
+        cdLabel = (TextView) view.findViewById(R.id.cdLabel);
+
+        cdLabel.setText(productResultNo);
 
         cdTimerTextCard = (CardView) view.findViewById(R.id.cdTimerTextCard);
         cdPassCard = (CardView) view.findViewById(R.id.cdPassCard);
@@ -97,11 +113,15 @@ public class BHCDCountDownFragment extends Fragment {
         cdToiletCard = (CardView) view.findViewById(R.id.cdToiletCard);
         cdSupplyCard = (CardView) view.findViewById(R.id.cdSupplyCard);
         cdChangeCard = (CardView) view.findViewById(R.id.cdChangeCard);
+        mainLayoutView = (LinearLayout) view.findViewById(R.id.mainLayoutView);
+        subLayoutView = (LinearLayout) view.findViewById(R.id.subLayoutView);
 
         GetLogID();
         UpdateQuantityInfo();
         GetProductCountDown();
         isOverTime = false;
+        isStartWorking = false;
+
         smokingPauseTimer = new CountDownTimer(10800000, 1000) {
             public void onTick(long millisUntilFinished) {
                 totalSmokingPauseTime = String.valueOf((10800000 - millisUntilFinished) / 1000);
@@ -133,6 +153,9 @@ public class BHCDCountDownFragment extends Fragment {
         overtimeTimer = new CountDownTimer(10800000, 1000) {
             public void onTick(long millisUntilFinished) {
                 totalOvertimeTime = String.valueOf((10800000 - millisUntilFinished) / 1000);
+                if ((10800000 - millisUntilFinished) / 1000 == 60) {
+                    r.play();
+                }
             }
 
             public void onFinish() {
@@ -147,45 +170,59 @@ public class BHCDCountDownFragment extends Fragment {
         cdSupplyCard.setVisibility(View.INVISIBLE);
         cdChangeCard.setVisibility(View.INVISIBLE);
 
+        Maximized();
 
         cdTimerTextCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(activity);
-                alert.setTitle(getString(R.string.informationTitle));
-                alert.setMessage("Bắt đầu phiên làm việc?\n开始会话？");
-                alert.setPositiveButton("Đồng ý 同意", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        cdTimerTextCard.setClickable(false);
-                        cdPassCard.setVisibility(View.VISIBLE);
-                        cdFailCard.setVisibility(View.VISIBLE);
-                        cdSmokingCard.setVisibility(View.VISIBLE);
-                        cdToiletCard.setVisibility(View.VISIBLE);
-                        cdSupplyCard.setVisibility(View.VISIBLE);
-                        cdChangeCard.setVisibility(View.VISIBLE);
-                        UpdateWorkingStatus();
-                        startCountDownTimer();
-
+                if(!isStartWorking)
+                {
+                    androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(activity);
+                    alert.setTitle(getString(R.string.informationTitle));
+                    alert.setMessage("Bắt đầu phiên làm việc?\n开始会话？");
+                    alert.setPositiveButton("Đồng ý 同意", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            isStartWorking = true;
+                            //cdTimerTextCard.setClickable(false);
+                            cdPassCard.setVisibility(View.VISIBLE);
+                            cdFailCard.setVisibility(View.VISIBLE);
+                            cdSmokingCard.setVisibility(View.VISIBLE);
+                            cdToiletCard.setVisibility(View.VISIBLE);
+                            cdSupplyCard.setVisibility(View.VISIBLE);
+                            cdChangeCard.setVisibility(View.VISIBLE);
+                            UpdateWorkingStatus();
+                            startCountDownTimer();
+                        }
+                    });
+                    alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    alert.show();
+                }
+                else {
+                    if (isMaximized)
+                    {
+                        Minimized();
+                    }else{
+                        Maximized();
                     }
-                });
-                alert.setNegativeButton("Hủy bỏ 撤消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
-                alert.show();
+                }
             }
         });
         cdPassCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Maximized();
                 if (TimerRunning) {
                     UpdateRealTimeQuantity();
                     resetCountDownTimer();
                 } else {
                     if (isOverTime) {
+                        r.stop();
                         UpdateOvertimeInfo();
                         UpdateRealTimeQuantity();
                         if (overtimeTimer != null)
@@ -198,6 +235,7 @@ public class BHCDCountDownFragment extends Fragment {
         cdFailCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Maximized();
                 if (TimerRunning) {
                     androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(activity);
                     alert.setTitle(getString(R.string.informationTitle));
@@ -218,6 +256,7 @@ public class BHCDCountDownFragment extends Fragment {
                     alert.show();
                 } else {
                     if (isOverTime) {
+                        r.stop();
                         UpdateOvertimeInfo();
                         UpdateNGQuantity();
                         if (overtimeTimer != null)
@@ -230,6 +269,7 @@ public class BHCDCountDownFragment extends Fragment {
         cdSmokingCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Maximized();
                 if (TimerRunning) {
                     androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(activity);
                     alert.setTitle(getString(R.string.informationTitle));
@@ -272,6 +312,7 @@ public class BHCDCountDownFragment extends Fragment {
         cdToiletCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Maximized();
                 if (TimerRunning) {
                     androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(activity);
                     alert.setTitle(getString(R.string.informationTitle));
@@ -316,6 +357,7 @@ public class BHCDCountDownFragment extends Fragment {
         cdSupplyCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Maximized();
                 if (TimerRunning) {
                     androidx.appcompat.app.AlertDialog.Builder alert = new androidx.appcompat.app.AlertDialog.Builder(activity);
                     alert.setTitle(getString(R.string.informationTitle));
@@ -379,6 +421,38 @@ public class BHCDCountDownFragment extends Fragment {
         return view;
     }
 
+    private void Maximized()
+    {
+        LinearLayout.LayoutParams layoutParamsMainFull = (LinearLayout.LayoutParams) mainLayoutView.getLayoutParams();
+        layoutParamsMainFull.height = LinearLayout.LayoutParams.MATCH_PARENT;
+        layoutParamsMainFull.width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+        LinearLayout.LayoutParams layoutParamsNonSub = (LinearLayout.LayoutParams) subLayoutView.getLayoutParams();
+        layoutParamsNonSub.height = 0;
+        layoutParamsNonSub.width = 0;
+
+        mainLayoutView.setLayoutParams(layoutParamsMainFull);
+        subLayoutView.setLayoutParams(layoutParamsNonSub);
+        //mainLayoutView.requestLayout();
+        isMaximized = true;
+    }
+
+    private void Minimized()
+    {
+        LinearLayout.LayoutParams layoutParamsMainFull = (LinearLayout.LayoutParams) mainLayoutView.getLayoutParams();
+        layoutParamsMainFull.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        layoutParamsMainFull.width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+        LinearLayout.LayoutParams layoutParamsNonSub = (LinearLayout.LayoutParams) subLayoutView.getLayoutParams();
+        layoutParamsNonSub.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        layoutParamsNonSub.width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+        mainLayoutView.setLayoutParams(layoutParamsMainFull);
+        subLayoutView.setLayoutParams(layoutParamsNonSub);
+        //mainLayoutView.requestLayout();
+        isMaximized = false;
+    }
+
     private void UpdateQuantityInfo() {
         BigHoseCountDownActivity activity = (BigHoseCountDownActivity) getActivity();
         if (logUUID != null) {
@@ -386,7 +460,7 @@ public class BHCDCountDownFragment extends Fragment {
             if (connect != null) {
                 try {
                     Statement st = connect.createStatement();
-                    ResultSet rs = st.executeQuery("select realtime_qty, ng_qty from big_hose_daily_employee_countdown_log where uuid = '" + logUUID + "'");
+                    ResultSet rs = st.executeQuery("select (realtime_qty - ng_qty), ng_qty from big_hose_daily_employee_countdown_log where uuid = '" + logUUID + "'");
                     while (rs.next()) {
                         cdPassInfoName.setText("OK : " + rs.getString(1) + " PCS");
                         cdFailInfoName.setText("NG : " + rs.getString(2) + " PCS");
