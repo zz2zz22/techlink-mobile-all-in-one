@@ -33,6 +33,7 @@ public class FSEHomeFragment extends Fragment {
         changeLocationCard = (CardView) view.findViewById(R.id.changeLocationCard);
         addNewCard = (CardView) view.findViewById(R.id.addNewCard);
         infoCard = (CardView) view.findViewById(R.id.infoCard);
+        insightCard = (CardView) view.findViewById(R.id.insightCard);
 
         maintenanceCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +72,14 @@ public class FSEHomeFragment extends Fragment {
             public void onClick(View view) {
                 activity.enableViews(true);
                 activity.replaceFragment(new FSEQRScanFragment(), true, "information", new Bundle());
+            }
+        });
+
+        insightCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.enableViews(true);
+                activity.replaceFragment(new FSEQRScanFragment(), true, "insight", new Bundle());
             }
         });
 

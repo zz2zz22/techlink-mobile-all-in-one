@@ -78,12 +78,15 @@ public class FSEQRScanFragment extends Fragment {
             scanTitle.setText("Quét tem thiết bị\n扫描设备标签");
             if (actionType == "changeLocation")
                 subMethods.showInformationDialog(getString(R.string.informationTitle), "Hãy quét tem thiết bị muốn chuyển!\n请扫描您要传输的设备标签！", activity);
+            if (actionType == "insight")
+                subMethods.showInformationDialog(getString(R.string.informationTitle), "Hãy quét tem thiết bị muốn chuyển!\n请扫描您要传输的设备标签！", activity);
         } else {
             if (actionType == "changeLocation" && fm.getBackStackEntryCount() == 2) {
                 scanTitle.setText("Quét tem thiết bị\n扫描设备标签");
                 subMethods.showInformationDialog(getString(R.string.informationTitle), "Hãy quét tem thiết bị thay thế!\n扫描替换设备标签！", activity);
             } else {
                 scanTitle.setText("Quét tem vị trí\n扫描位置标记");
+                subMethods.showInformationDialog(getString(R.string.informationTitle), "Quét tem vị trí\n扫描位置标记", activity);
             }
         }
         Runnable runnable = new Runnable() {
@@ -196,6 +199,16 @@ public class FSEQRScanFragment extends Fragment {
                                             activity.replaceFragment(fragmentInformation, true, "information", bundleAddArgs);
                                         }
                                         break;
+                                    case "insight":
+                                        if (rs.getString(3) == null || rs.getString(3).length() == 0) {
+                                            subMethods.showInformationDialog(getString(R.string.informationTitle), "Thiết bị chưa được thêm vị trí\n未添加此设备的位置", activity);
+                                            activity.returnToHome();
+                                        } else {
+                                            Fragment fragmentChangeLocation = new FSEQRScanFragment();
+                                            activity.enableViews(true);
+                                            activity.replaceFragment(fragmentChangeLocation, true, "insight", bundleAddArgs);
+                                        }
+                                        break;
                                 }
                             }
                         }
@@ -222,7 +235,21 @@ public class FSEQRScanFragment extends Fragment {
                                 }
                             }
 
-                        } else {
+                        }
+                        else if (actionType == "insight" && fm.getBackStackEntryCount() == 2)
+                        {
+                            String[] locationQR = scanResult.split("[;]");
+                            if (locationQR.length > 1)
+                            {
+                                String location = locationQR[0].trim();
+                                String manager = locationQR[1].trim();
+                                String updateDeviceLocationQuery = "update pccc_info set device_location = N'" + location + "', update_date = GETDATE() where device_uuid = '" + deviceUUID + "'";
+                                st.executeUpdate(updateDeviceLocationQuery);
+                                activity.returnToHome();
+                                subMethods.showSuccessDialog(getString(R.string.successTitle), "Thay đổi vị trí thiết bị thành công\n设备位置更改成功", activity);
+                            }
+                        }
+                        else {
                             String[] locationQR = scanResult.split("[;]");
                             if (locationQR.length > 1) {
                                 String location = locationQR[0].trim();
