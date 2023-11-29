@@ -91,11 +91,16 @@ public class HomeFragment extends Fragment {
     }
     private boolean CheckPermission(String permissionArray)
     {
-        String[] permissions = permissionArray.split(";");
-        if (Arrays.asList(permissions).contains(empDeptCode)) {
+        if (permissionArray.isEmpty())
+        {
             return true;
         }else {
-            return false;
+            String[] permissions = permissionArray.split(";");
+            if (Arrays.asList(permissions).contains(empDeptCode)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

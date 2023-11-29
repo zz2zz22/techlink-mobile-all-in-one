@@ -6,7 +6,9 @@
 
     //Button Titles
     <string name="fire_equipment_title">Quản lý thiết bị chữa cháy\n消防器材管理</string>
-    <string name="fire_equipment_permission">888;777-8;777-7;77718;77717;77711;77710</string>
+    <string name="fire_equipment_permission"></string>
+    //888;777-8;777-7;77718;77717;77711;77710
+
     <string name="big_hose_qty_input_title">Nhập sản lượng ống lớn\n输入大管输出</string>
     <string name="big_hose_qty_input_permission">888;77711;77710;222;999</string>
     <string name="big_hose_countdown_title">Đếm ngược sản xuất ống lớn\n大管生产倒计时</string>
