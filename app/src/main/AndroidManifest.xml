@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -27,14 +26,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TechlinkMobileAllInOne"
         tools:targetApi="31">
+update
         <activity
             android:name=".BigHoseCountDown.BigHoseCountDownActivity"
             android:exported="false"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".FireSafetyEquipment.FireSafetyEquipmentMainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GetStarted"
             android:exported="false" />

@@ -71,6 +71,8 @@ public class BigHoseCountDownActivity extends AppCompatActivity {
                         returnToHome();
                         break;
                     case R.id.bh_nav_settings:
+                        enableViews(true);
+                        replaceFragment(new BHCDSettings(), true);
                         break;
                     case R.id.bh_nav_logout:
                         alert.setTitle(getString(R.string.informationTitle));

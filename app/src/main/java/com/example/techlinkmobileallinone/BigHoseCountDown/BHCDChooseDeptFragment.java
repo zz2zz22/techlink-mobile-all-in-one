@@ -1,6 +1,8 @@
 package com.example.techlinkmobileallinone.BigHoseCountDown;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -105,18 +107,26 @@ public class BHCDChooseDeptFragment extends Fragment {
                 if (stationUUID == null || stationUUID.isEmpty())
                     subMethods.showInformationDialog(getString(R.string.informationTitle), "Vui lòng chọn trạm sản xuất\n请选择生产站", getActivity());
                 else {
-                    Fragment fragment = new BHCDChooseProductFragment();
-                    Bundle bundleArgs = new Bundle();
-                    //empCode, empName, stationUUID, stationName, deptUUID, deptName;
-                    bundleArgs.putString("empCode", empCode);
-                    bundleArgs.putString("empName", empName);
-                    bundleArgs.putString("stationUUID", stationUUID);
-                    bundleArgs.putString("stationName", stationName);
-                    bundleArgs.putString("deptUUID", deptUUID);
-                    bundleArgs.putString("deptName", deptName);
-                    fragment.setArguments(bundleArgs);
-                    activity.enableViews(true);
-                    activity.replaceFragment(fragment, true);
+                    SharedPreferences getMachineID = getActivity().getSharedPreferences("getMachineID", 0);
+                    String machineID = getMachineID.getString("getMachineID", "");
+                    if (machineID.isEmpty())
+                    {
+
+                    }else{
+                        Fragment fragment = new BHCDChooseProductFragment();
+                        Bundle bundleArgs = new Bundle();
+                        //empCode, empName, stationUUID, stationName, deptUUID, deptName;
+                        bundleArgs.putString("empCode", empCode);
+                        bundleArgs.putString("empName", empName);
+                        bundleArgs.putString("stationUUID", stationUUID);
+                        bundleArgs.putString("stationName", stationName);
+                        bundleArgs.putString("deptUUID", deptUUID);
+                        bundleArgs.putString("deptName", deptName);
+                        fragment.setArguments(bundleArgs);
+                        activity.enableViews(true);
+                        activity.replaceFragment(fragment, true);
+                    }
+
                 }
             }
         });
