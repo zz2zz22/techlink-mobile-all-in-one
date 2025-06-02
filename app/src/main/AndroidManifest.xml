@@ -26,7 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TechlinkMobileAllInOne"
         tools:targetApi="31">
-update
+        <activity
+            android:name=".MachineCheck.MachineCheckMainActivity"
+            android:exported="false" />
         <activity
             android:name=".BigHoseCountDown.BigHoseCountDownActivity"
             android:exported="false"
