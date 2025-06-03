@@ -1,14 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MachineCheck.MachineCheckHomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/constraintLayout"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toolName"
+                    android:text="Quản lý thiết bị"
+                    android:textSize="20dp"
+                    android:textColor="@color/lavender"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iconImage"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toolDesc"
+                    android:text="设备管理"
+                    android:textSize="16dp"
+                    android:layout_marginStart="18dp"
+                    android:textColor="@color/lavender"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toolName"
+                    app:layout_constraintEnd_toStartOf="@+id/iconImage"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:id="@+id/iconImage"
+                    android:src="@drawable/factory_machine"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintStart_toEndOf="@id/toolName"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:id="@+id/row1"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iconImage">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/checkCard"
+                        app:cardElevation="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/checkName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/checkImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="Kiểm tra 测试"
+                                android:textColor="@color/lavender"
+                                android:textSize="20sp" />
+
+                            <ImageView
+                                android:id="@+id/checkImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/fire_safety_check" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/maintenanceCard"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:cardElevation="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/maintenanceName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/maintenanceImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="Sửa chữa 维修"
+                                android:textColor="@color/lavender"
+                                android:textSize="20sp" />
+
+                            <ImageView
+                                android:id="@+id/maintenanceImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/fire_safety_maintenance" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="175dp"
+                    android:id="@+id/row2"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/row1">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/addNewCard"
+                        app:cardElevation="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/updateName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/updateImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="Cập nhật 更新"
+                                android:textColor="@color/lavender"
+                                android:textSize="20sp"/>
+
+                            <ImageView
+                                android:id="@+id/updateImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/updated" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/infoCard"
+                        app:cardElevation="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardMaxElevation="6dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/infoName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/infoImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="Thông tin 消息"
+                                android:textColor="@color/lavender"
+                                android:textSize="20sp" />
+
+                            <ImageView
+                                android:id="@+id/infoImage"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/fire_safety_information" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
 
 </FrameLayout>
