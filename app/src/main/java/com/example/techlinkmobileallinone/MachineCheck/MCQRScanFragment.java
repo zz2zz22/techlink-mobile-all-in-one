@@ -37,10 +37,10 @@ import java.sql.Statement;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MachineCheckQRScanFragment#newInstance} factory method to
+ * Use the {@link MCQRScanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MachineCheckQRScanFragment extends Fragment {
+public class MCQRScanFragment extends Fragment {
 
     Connection connect;
     String ConnectionResult = "";
@@ -52,7 +52,7 @@ public class MachineCheckQRScanFragment extends Fragment {
     private int CAMERA_PERMISSION_REQUEST_CODE = 0;
     private String actionType;
 
-    public MachineCheckQRScanFragment() {
+    public MCQRScanFragment() {
         // Required empty public constructor
     }
     @Override
@@ -71,7 +71,7 @@ public class MachineCheckQRScanFragment extends Fragment {
         }
         Bundle bundle = getArguments();
         actionType = bundle.getString("actionType");
-        View view = inflater.inflate(R.layout.fragment_machine_check_q_r_scan, container, false);
+        View view = inflater.inflate(R.layout.fragment_m_c_q_r_scan, container, false);
         scannerView = (CodeScannerView) view.findViewById(R.id.scanner_view);
         scanTitle = (TextView) view.findViewById(R.id.scanTitle);
         codeScanner = new CodeScanner(view.getContext(), scannerView);

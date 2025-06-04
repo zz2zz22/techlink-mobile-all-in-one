@@ -71,19 +71,19 @@ public class MachineCheckMainActivity extends AppCompatActivity {
                         break;
                     case R.id.mc_check:
                         enableViews(true);
-                        replaceFragment(new MachineCheckQRScanFragment(), true, "check", new Bundle());
+                        replaceFragment(new MCQRScanFragment(), true, "check", new Bundle());
                         break;
                     case R.id.mc_maintainance:
                         enableViews(true);
-                        replaceFragment(new MachineCheckQRScanFragment(), true, "maintenance", new Bundle());
+                        replaceFragment(new MCQRScanFragment(), true, "maintenance", new Bundle());
                         break;
                     case R.id.mc_update:
                         enableViews(true);
-                        replaceFragment(new MachineCheckQRScanFragment(), true, "update", new Bundle());
+                        replaceFragment(new MCQRScanFragment(), true, "update", new Bundle());
                         break;
                     case R.id.mc_info:
                         enableViews(true);
-                        replaceFragment(new MachineCheckQRScanFragment(), true, "information", new Bundle());
+                        replaceFragment(new MCQRScanFragment(), true, "information", new Bundle());
                         break;
                     case R.id.mc_logout:
                         alert.setTitle(getString(R.string.informationTitle));
@@ -111,7 +111,7 @@ public class MachineCheckMainActivity extends AppCompatActivity {
         });
         fragmentManager = getSupportFragmentManager();
         if (savedInstanceState == null) {
-            replaceFragment(new MachineCheckHomeFragment(), false, "null", new Bundle());
+            replaceFragment(new MCHomeFragment(), false, "null", new Bundle());
             navigationView.setCheckedItem(R.id.fire_nav_home);
         }
     }
@@ -167,7 +167,7 @@ public class MachineCheckMainActivity extends AppCompatActivity {
     {
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);;
         enableViews(false);
-        replaceFragment(new MachineCheckHomeFragment(), false, "null", new Bundle());
+        replaceFragment(new MCHomeFragment(), false, "null", new Bundle());
     }
 
     public Bundle getUserData() {

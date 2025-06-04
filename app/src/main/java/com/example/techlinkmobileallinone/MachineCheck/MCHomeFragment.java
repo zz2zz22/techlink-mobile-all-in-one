@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 import com.example.techlinkmobileallinone.R;
 
-public class MachineCheckHomeFragment extends Fragment {
+public class MCHomeFragment extends Fragment {
     CardView maintenanceCard, checkCard, updateCard, infoCard;
     MachineCheckMainActivity activity;
-    public MachineCheckHomeFragment() {
+    public MCHomeFragment() {
         // Required empty public constructor
     }
 
@@ -27,7 +27,7 @@ public class MachineCheckHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MachineCheckMainActivity activity = (MachineCheckMainActivity)getActivity();
-        View view =inflater.inflate(R.layout.fragment_machine_check_home, container, false);
+        View view =inflater.inflate(R.layout.fragment_m_c_home, container, false);
         maintenanceCard = (CardView) view.findViewById(R.id.maintenanceCard);
         checkCard = (CardView) view.findViewById(R.id.checkCard);
         updateCard = (CardView) view.findViewById(R.id.updateCard);
@@ -37,7 +37,7 @@ public class MachineCheckHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.enableViews(true);
-                activity.replaceFragment(new MachineCheckQRScanFragment(), true, "maintenance", new Bundle());
+                activity.replaceFragment(new MCQRScanFragment(), true, "maintenance", new Bundle());
             }
         });
 
@@ -45,7 +45,7 @@ public class MachineCheckHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.enableViews(true);
-                activity.replaceFragment(new MachineCheckQRScanFragment(), true, "check", new Bundle());
+                activity.replaceFragment(new MCQRScanFragment(), true, "check", new Bundle());
             }
         });
 
@@ -53,7 +53,7 @@ public class MachineCheckHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.enableViews(true);
-                activity.replaceFragment(new MachineCheckQRScanFragment(), true, "changeLocation", new Bundle());
+                activity.replaceFragment(new MCQRScanFragment(), true, "changeLocation", new Bundle());
             }
         });
 
@@ -61,7 +61,7 @@ public class MachineCheckHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.enableViews(true);
-                activity.replaceFragment(new MachineCheckQRScanFragment(), true, "information", new Bundle());
+                activity.replaceFragment(new MCQRScanFragment(), true, "information", new Bundle());
             }
         });
 
