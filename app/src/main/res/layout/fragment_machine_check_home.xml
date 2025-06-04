@@ -154,7 +154,7 @@
                         android:layout_height="match_parent"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:id="@+id/addNewCard"
+                        android:id="@+id/updateCard"
                         app:cardElevation="6dp"
                         app:cardCornerRadius="20dp"
                         app:cardMaxElevation="6dp">

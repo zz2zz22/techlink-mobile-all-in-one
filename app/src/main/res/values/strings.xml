@@ -14,6 +14,9 @@
     <string name="big_hose_countdown_title">Đếm ngược sản xuất ống lớn\n大管生产倒计时</string>
     <string name="big_hose_countdown_permission">888;77711;77710;222;999</string>
 
+    <string name="machine_check_title">Quản lý thiết bị\n设备管理</string>
+    <string name="machine_check_permission"></string>
+
     //Onboarding Walkthrough
     <string name="screen1">Có gì mới ?\n什么是新的 ？</string>
     <string name="screen2">Nhanh hơn\n快点</string>

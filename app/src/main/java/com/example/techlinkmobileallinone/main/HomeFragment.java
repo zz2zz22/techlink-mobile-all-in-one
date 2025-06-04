@@ -15,6 +15,7 @@ import com.example.techlinkmobileallinone.BigHoseCountDown.BigHoseCountDownActiv
 import com.example.techlinkmobileallinone.FireSafetyEquipment.FireSafetyEquipmentMainActivity;
 import com.example.techlinkmobileallinone.HomeActivity;
 import com.example.techlinkmobileallinone.LoginActivity;
+import com.example.techlinkmobileallinone.MachineCheck.MachineCheckMainActivity;
 import com.example.techlinkmobileallinone.R;
 import com.example.techlinkmobileallinone.controller.ButtonAdapter;
 import com.example.techlinkmobileallinone.utils.ButtonDataClass;
@@ -82,7 +83,9 @@ public class HomeFragment extends Fragment {
         //Khu vực thêm nút
         androidData = new ButtonDataClass(getString(R.string.big_hose_countdown_title), CheckPermission(getString(R.string.big_hose_countdown_permission)), "Ống Lớn\n大管", R.drawable.button_bighose_countdown, BigHoseCountDownActivity.class, empCode, empName, false);
         dataList.add(androidData);
-        androidData = new ButtonDataClass(getString(R.string.fire_equipment_title), CheckPermission(getString(R.string.fire_equipment_permission)), "HSE", R.drawable.button_fire_equipment, FireSafetyEquipmentMainActivity.class, empCode, empName, true);
+        androidData = new ButtonDataClass(getString(R.string.fire_equipment_title), CheckPermission(getString(R.string.fire_equipment_permission)), "HSE", R.drawable.button_fire_equipment, FireSafetyEquipmentMainActivity.class, empCode, empName, false);
+        dataList.add(androidData);
+        androidData = new ButtonDataClass(getString(R.string.machine_check_title), CheckPermission(getString(R.string.machine_check_permission)), "Bộ phận quản lý 管理处", R.drawable.button_machine_check, MachineCheckMainActivity.class, empCode, empName, false);
         dataList.add(androidData);
 
         adapter = new ButtonAdapter(getContext(), dataList);

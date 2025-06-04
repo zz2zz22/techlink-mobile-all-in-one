@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view"
+    android:backgroundTint="@color/white">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/mc_home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Màn hình chính 主屏幕" />
+
+        <item
+            android:id="@+id/mc_check"
+            android:icon="@drawable/baseline_checklist_24"
+            android:title="Kiểm tra 测试"/>
+        <item
+            android:id="@+id/mc_maintainance"
+            android:icon="@drawable/baseline_home_repair_service_24"
+            android:title="Bảo trì 保养"/>
+
+        <item
+            android:id="@+id/mc_update"
+            android:icon="@drawable/baseline_edit_location_24"
+            android:title="Cập nhật 更新"/>
+
+        <item
+            android:id="@+id/mc_info"
+            android:icon="@drawable/baseline_info_24"
+            android:title="Thông tin 消息"/>
+
+    </group>
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/mc_logout"
+                android:icon="@drawable/baseline_power_settings_new_24"
+                android:title="Đăng xuất 登出"/>
+        </menu>
+
+    </item>
+</menu>
