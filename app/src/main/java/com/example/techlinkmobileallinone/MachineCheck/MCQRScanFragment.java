@@ -115,84 +115,48 @@ public class MCQRScanFragment extends Fragment {
         MachineCheckMainActivity activity = (MachineCheckMainActivity) getActivity();
         DatabaseConnector databaseConnector = new DatabaseConnector();
         actionType = bundleArgs.getString("actionType");
-        String deviceUUID = bundleArgs.getString("deviceUUID");
-        String installDate = bundleArgs.getString("installDate");
-        String expDate = bundleArgs.getString("expDate");
-        String oldLocation = bundleArgs.getString("oldLocation");
+
         try {
             if (scanResult != null && scanResult.length() > 0) {
                 connect = databaseConnector.sqlDeviceMaintenanceCon();
                 if (connect != null) {
                     Statement st = connect.createStatement();
                     if (fm.getBackStackEntryCount() == 1) {
-                        ResultSet rs = st.executeQuery("select device_type_uuid, device_type_name, device_location, device_manager from pccc_info where device_uuid = '" + scanResult + "'");
+                        ResultSet rs = st.executeQuery("select uuid from property_info where code = '" + scanResult.trim() + "'");
                         while (rs.next()) {
                             if (rs.getString(1) == null || rs.getString(1).length() == 0) {
-                                subMethods.showInformationDialog(getString(R.string.informationTitle), "Thiết bị không có trong hệ thống\n该设备不在系统中", activity);
+                                subMethods.showInformationDialog(getString(R.string.informationTitle), "Không tìm thấy thiết bị vừa quét trong hệ thống, hãy kiểm tra bạn có thêm thiết bị bằng ứng dụng window chưa.\n在系统中没有找到设备，请检查您是否有窗口应用程序的其他设备。", activity);
                                 activity.returnToHome();
                             } else {
-
                                 Bundle bundleAddArgs = new Bundle();
-                                bundleAddArgs.putString("deviceUUID", scanResult);
-                                bundleAddArgs.putString("deviceTypeID", rs.getString(1));
-                                bundleAddArgs.putString("deviceName", rs.getString(2));
-                                bundleAddArgs.putString("deviceLocation", rs.getString(3));
-                                bundleAddArgs.putString("deviceManager", rs.getString(4));
+                                bundleAddArgs.putString("uuid", rs.getString(1));
                                 switch (actionType) {
                                     case "maintenance":
-                                        if (rs.getString(3) == null || rs.getString(3).length() == 0) {
-                                            subMethods.showInformationDialog(getString(R.string.informationTitle), "Thiết bị chưa được thêm vị trí\n未添加此设备的位置", activity);
-                                            activity.returnToHome();
-                                        } else {
-                                            Fragment fragmentMaintenance = new FSEMaintenanceFragment();
-                                            activity.enableViews(true);
-                                            activity.replaceFragment(fragmentMaintenance, true, "maintenance", bundleAddArgs);
-                                        }
+                                        Fragment fragmentMaintenance = new MCMaintenanceFragment();
+                                        activity.enableViews(true);
+                                        activity.replaceFragment(fragmentMaintenance, true, "maintenance", bundleAddArgs);
                                         break;
                                     case "check":
-                                        if (rs.getString(3) == null || rs.getString(3).length() == 0) {
-                                            subMethods.showInformationDialog(getString(R.string.informationTitle), "Thiết bị chưa được thêm vị trí\n未添加此设备的位置", activity);
-                                            activity.returnToHome();
-                                        } else {
-                                            Fragment fragmentCheck = new FSECheckFragment();
-                                            activity.enableViews(true);
-                                            activity.replaceFragment(fragmentCheck, true, "check", bundleAddArgs);
-                                        }
+                                        Fragment fragmentCheck = new MCCheckFragment();
+                                        activity.enableViews(true);
+                                        activity.replaceFragment(fragmentCheck, true, "check", bundleAddArgs);
                                         break;
-                                    case "changeLocation":
-                                        if (rs.getString(3) == null || rs.getString(3).length() == 0) {
-                                            subMethods.showInformationDialog(getString(R.string.informationTitle), "Thiết bị chưa được thêm vị trí\n未添加此设备的位置", activity);
-                                            activity.returnToHome();
-                                        } else {
-                                            Fragment fragmentChangeLocation = new FSEQRScanFragment();
-                                            activity.enableViews(true);
-                                            bundleAddArgs.putString("oldLocation", rs.getString(3));
-                                            activity.replaceFragment(fragmentChangeLocation, true, "changeLocation", bundleAddArgs);
-                                        }
-                                        break;
-                                    case "add":
-                                        if (rs.getString(3) != null && rs.getString(3).length() != 0) {
-                                            subMethods.showInformationDialog(getString(R.string.informationTitle), "Thiết bị đã có thông tin\n设备已有信息", activity);
-                                            activity.returnToHome();
-                                        } else {
-                                            Fragment fragmentAdd = new FSEAddNewFragment();
-                                            activity.enableViews(true);
-                                            activity.replaceFragment(fragmentAdd, true, "add", bundleAddArgs);
-                                        }
+                                    case "update":
+                                        Fragment fragmentUpdate = new MCUpdateFragment();
+                                        activity.enableViews(true);
+                                        activity.replaceFragment(fragmentUpdate, true, "update", bundleAddArgs);
                                         break;
                                     case "information":
-                                        if (rs.getString(3) == null || rs.getString(3).length() == 0) {
-                                            subMethods.showInformationDialog(getString(R.string.informationTitle), "Thiết bị chưa được thêm vị trí\n未添加此设备的位置", activity);
-                                            activity.returnToHome();
-                                        } else {
-                                            Fragment fragmentInformation = new FSEInformationFragment();
-                                            activity.enableViews(true);
-                                            activity.replaceFragment(fragmentInformation, true, "information", bundleAddArgs);
-                                        }
+                                        Fragment fragmentInformation = new MCInformationFragment();
+                                        activity.enableViews(true);
+                                        activity.replaceFragment(fragmentInformation, true, "information", bundleAddArgs);
                                         break;
                                 }
                             }
                         }
+                        rs.close();
+                        st.close();
+                        connect.close();
                     }
                 }
                 codeScanner.releaseResources();
