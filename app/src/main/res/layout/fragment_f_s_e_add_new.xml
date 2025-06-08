@@ -115,7 +115,7 @@
                 <Button
                     android:layout_width="300dp"
                     android:layout_height="70dp"
-                    android:id="@+id/scanSaveNewButton"
+                    android:id="@+id/scanCheckButton"
                     android:text="Xác nhận 断言"
                     android:fontFamily="@font/exo2_semibold"
                     android:textSize="18dp"
@@ -134,7 +134,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/scanSaveNewButton">
+                    app:layout_constraintTop_toBottomOf="@+id/scanCheckButton">
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

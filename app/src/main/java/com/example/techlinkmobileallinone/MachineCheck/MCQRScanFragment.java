@@ -122,7 +122,7 @@ public class MCQRScanFragment extends Fragment {
                 if (connect != null) {
                     Statement st = connect.createStatement();
                     if (fm.getBackStackEntryCount() == 1) {
-                        ResultSet rs = st.executeQuery("select uuid from property_info where code = '" + scanResult.trim() + "'");
+                        ResultSet rs = st.executeQuery("select uuid, code from property_info where code = '" + scanResult.trim() + "'");
                         while (rs.next()) {
                             if (rs.getString(1) == null || rs.getString(1).length() == 0) {
                                 subMethods.showInformationDialog(getString(R.string.informationTitle), "Không tìm thấy thiết bị vừa quét trong hệ thống, hãy kiểm tra bạn có thêm thiết bị bằng ứng dụng window chưa.\n在系统中没有找到设备，请检查您是否有窗口应用程序的其他设备。", activity);
@@ -130,6 +130,7 @@ public class MCQRScanFragment extends Fragment {
                             } else {
                                 Bundle bundleAddArgs = new Bundle();
                                 bundleAddArgs.putString("uuid", rs.getString(1));
+                                bundleAddArgs.putString("code", rs.getString(2));
                                 switch (actionType) {
                                     case "maintenance":
                                         Fragment fragmentMaintenance = new MCMaintenanceFragment();

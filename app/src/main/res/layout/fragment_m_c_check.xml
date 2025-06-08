@@ -1,72 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MachineCheck.MCCheckFragment">
 
-    <RelativeLayout
+    <!-- Static header content -->
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
         <TextView
+            android:id="@+id/checkTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Kiểm tra thiết bị\n测试设备"
-            android:id="@+id/checkTitle"
             android:fontFamily="@font/exo2_semibold"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/lavender"
-            />
+            android:textColor="@color/lavender" />
+
         <TextView
+            android:id="@+id/checkDeviceCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/checkDeviceCode"
-            android:layout_below="@+id/checkTitle"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
             android:text="Mã 代码"
             android:fontFamily="@font/exo2_semibold"
             android:textSize="18sp"
-            android:textColor="@color/lavender"
-            tools:ignore="RtlSymmetry" />
+            android:textColor="@color/lavender" />
+
         <TextView
+            android:id="@+id/checkDeviceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/checkDeviceName"
-            android:layout_below="@+id/checkDeviceCode"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
             android:text="Tên TB 设备名称"
             android:fontFamily="@font/exo2_semibold"
             android:textSize="18sp"
-            android:textColor="@color/lavender"
-            tools:ignore="RtlSymmetry" />
+            android:textColor="@color/lavender" />
+
         <TextView
+            android:id="@+id/checkDeviceDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/checkDeviceDetail"
-            android:layout_below="@+id/checkDeviceName"
             android:paddingTop="10dp"
             android:paddingStart="10dp"
             android:text="Mô tả 描述"
             android:fontFamily="@font/exo2_semibold"
             android:textSize="18sp"
-            android:textColor="@color/lavender"
-            tools:ignore="RtlSymmetry" />
-    </RelativeLayout>
+            android:textColor="@color/lavender" />
+    </LinearLayout>
 
+    <!-- Scrollable checkbox list -->
     <ScrollView
+        android:id="@+id/scrollMain"
+        android:layout_above="@id/scanCheckButton"
+        android:layout_below="@id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
-        tools:ignore="UselessParent">
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="50dp"> <!-- leave space for button -->
+
         <LinearLayout
             android:id="@+id/container"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"/>
+            android:padding="16dp" />
     </ScrollView>
-</FrameLayout>
+
+    <!-- Button fixed at bottom -->
+    <Button
+        android:id="@+id/scanCheckButton"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:text="Xác nhận 断言"
+        android:fontFamily="@font/exo2_semibold"
+        android:textSize="18sp"
+        android:backgroundTint="@color/rebeccaPurple"
+        android:layout_margin="16dp" />
+</RelativeLayout>
