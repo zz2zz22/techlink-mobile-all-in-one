@@ -35,11 +35,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MCQRScanFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class MCQRScanFragment extends Fragment {
 
     Connection connect;
@@ -63,7 +59,7 @@ public class MCQRScanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FireSafetyEquipmentMainActivity activity = (FireSafetyEquipmentMainActivity) getActivity();
+        MachineCheckMainActivity activity = (MachineCheckMainActivity) getActivity();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
@@ -121,16 +117,15 @@ public class MCQRScanFragment extends Fragment {
                 connect = databaseConnector.sqlDeviceMaintenanceCon();
                 if (connect != null) {
                     Statement st = connect.createStatement();
-                    if (fm.getBackStackEntryCount() == 1) {
-                        ResultSet rs = st.executeQuery("select uuid, code from property_info where code = '" + scanResult.trim() + "'");
+                    String test = scanResult;
+                        ResultSet rs = st.executeQuery("select uuid from property_info where code = '" + scanResult.trim() + "'");
                         while (rs.next()) {
                             if (rs.getString(1) == null || rs.getString(1).length() == 0) {
                                 subMethods.showInformationDialog(getString(R.string.informationTitle), "Không tìm thấy thiết bị vừa quét trong hệ thống, hãy kiểm tra bạn có thêm thiết bị bằng ứng dụng window chưa.\n在系统中没有找到设备，请检查您是否有窗口应用程序的其他设备。", activity);
                                 activity.returnToHome();
                             } else {
                                 Bundle bundleAddArgs = new Bundle();
-                                bundleAddArgs.putString("uuid", rs.getString(1));
-                                bundleAddArgs.putString("code", rs.getString(2));
+                                bundleAddArgs.putString("uuid", rs.getString(1).trim());
                                 switch (actionType) {
                                     case "maintenance":
                                         Fragment fragmentMaintenance = new MCMaintenanceFragment();
@@ -158,7 +153,6 @@ public class MCQRScanFragment extends Fragment {
                         rs.close();
                         st.close();
                         connect.close();
-                    }
                 }
                 codeScanner.releaseResources();
             } else {

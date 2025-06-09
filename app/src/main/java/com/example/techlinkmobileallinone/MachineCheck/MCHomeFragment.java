@@ -53,7 +53,7 @@ public class MCHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 activity.enableViews(true);
-                activity.replaceFragment(new MCQRScanFragment(), true, "changeLocation", new Bundle());
+                activity.replaceFragment(new MCQRScanFragment(), true, "update", new Bundle());
             }
         });
 

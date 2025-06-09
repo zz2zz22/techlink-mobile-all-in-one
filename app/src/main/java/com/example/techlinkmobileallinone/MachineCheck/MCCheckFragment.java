@@ -32,10 +32,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MCCheckFragment extends Fragment {
-    LinearLayout container;
-    List<CheckBox> checkBoxList = new ArrayList<>();
+    private LinearLayout checkboxContainer;
+    private List<CheckBox> checkBoxList = new ArrayList<>();
     TextView checkDeviceCode, checkDeviceName, checkDeviceDetail;
     private String deviceUUID, empCode, empName;
     SubMethods subMethods;
@@ -63,8 +62,11 @@ public class MCCheckFragment extends Fragment {
         checkDeviceCode = (TextView) view.findViewById(R.id.checkDeviceCode);
         checkDeviceName = (TextView) view.findViewById(R.id.checkDeviceName);
         checkDeviceDetail = (TextView) view.findViewById(R.id.checkDeviceDetail);
+        checkboxContainer = (LinearLayout) view.findViewById(R.id.container);
 
         Button checkButton = (Button) view.findViewById(R.id.scanCheckButton);
+
+        String checkTypeID = "";
 
         try{
             DatabaseConnector databaseConnector = new DatabaseConnector();
@@ -79,21 +81,20 @@ public class MCCheckFragment extends Fragment {
                     checkDeviceName.setText("Tên TB 设备名称:\n" + rsGetData.getString("name"));
                     checkDeviceDetail.setText("Mô tả 描述:\n" + rsGetData.getString("detail"));
 
+                    checkTypeID = rsGetData.getString("check_type_id").trim();
+
                     connect.close();
-
-                    loadCheckBoxes(rsGetData.getString("check_type_id"));
-
                     stGetData.close();
                     rsGetData.close();
                 }
             }else{
-                activity.returnToHome();
-                subMethods.showErrorDialog(getString(R.string.errorTitle), getString(R.string.sqlNotConnect), activity);
+
             }
         } catch (Exception e) {
-            activity.returnToHome();
-            subMethods.showErrorDialog(getString(R.string.errorTitle), e.getMessage(), activity);
+
         }
+
+        loadCheckBoxes(checkTypeID);
 
         checkButton.setOnClickListener(v -> {
             if (areAllChecked()) {
@@ -138,7 +139,7 @@ public class MCCheckFragment extends Fragment {
                                 cb.setText(trimmed);
                                 cb.setPadding(16, 16, 16, 16);
                                 checkBoxList.add(cb);
-                                container.addView(cb);
+                                checkboxContainer.addView(cb);
                             }
                         });
                     }
@@ -177,7 +178,6 @@ public class MCCheckFragment extends Fragment {
                 st.close();
                 connect.close();
 
-                activity.returnToHome();
                 subMethods.showSuccessDialog(getString(R.string.successTitle), "Hoàn tất kiểm tra thiết bị\n完成设备检查", activity);
             } else {
                 subMethods.showErrorDialog(getString(R.string.errorTitle), getString(R.string.sqlNotConnect), activity);
